@@ -1,0 +1,13 @@
+{{item.label}} {{#if amount}}({{amount}}){{/if}}
+
+{{#if item.subActions}}
+  {{#unless _disabled}}
+    <ul class="context-menu--sub">
+      {{#each item.subActions as |subItem|}}
+        {{context-menu-item item=subItem
+                            details=details
+                            selection=selection}}
+      {{/each}}
+    </ul>
+  {{/unless}}
+{{/if}}

@@ -1,0 +1,36 @@
+body, html {
+  width:  100%;
+  height: 100%;
+}
+
+#wormhole-context-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index:  100;
+}
+
+.context-menu-container {
+  position: fixed;
+}
+
+.context-menu {
+  position: absolute;
+  margin:   0;
+  padding:  0;
+
+  border:           1px solid rgba(0, 0, 0, 0.3);
+  background-color: white;
+
+  &--sub {
+    display:  none;
+    position: absolute;
+    left:     calc(100%);
+    top:      0;
+    margin:   0;
+    padding:  0;
+
+    border:           1px solid rgba(0, 0, 0, 0.3);
+    background-color: white;
+  }
+}

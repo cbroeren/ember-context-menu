@@ -1,0 +1,13 @@
+{{#if isActive}}
+  {{#ember-wormhole to="wormhole-context-menu"}}
+    <div class="context-menu-container" style={{position}}>
+      <ul class="context-menu">
+        {{#each items as |item|}}
+          {{context-menu-item item=item
+                              details=details
+                              selection=selection}}
+        {{/each}}
+      </ul>
+    </div>
+  {{/ember-wormhole}}
+{{/if}}
