@@ -4,28 +4,23 @@ import contextMenuMixin from 'ember-context-menu';
 export default Component.extend(contextMenuMixin, {
   classNames: ['test-component'],
 
+  contextSelection: [1, 2],
+
   contextItems: [
-    { label: 'lang context label' },
+    { label: 'Disabled item' },
     {
-      label: 'parent',
+      label: 'Multi actions',
       subActions: [
-        { label: 'sub 1' },
+        { label: 'Sub action', action() { } },
         {
-          label: 'sub 2',
+          label: 'Multiple sub',
           subActions: [
-            { label: 'sub 2.1' },
-            {
-              label: 'sub 2.2',
-              subActions: [
-                {
-                  label: 'sub 2.2.1',
-                  action() { console.log('sub 2.2.1'); }
-                }
-              ]
-            }
+            { label: 'Sub A', action() { } },
+            { label: 'Sub B', action() { } }
           ]
         }
       ]
-    }
+    },
+    { label: 'Do something', action() { } }
   ]
 });
