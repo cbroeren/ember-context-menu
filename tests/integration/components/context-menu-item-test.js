@@ -189,10 +189,25 @@ test('selection amount only on parent', function(assert) {
 
   this.render(hbs`{{context-menu-item item=item selection=selection}}`);
 
-  let $options = $('li.context-menu__item');
-  let $parent  = $options.eq(0);
-  let $sub     = $parent.find('.context-menu--sub');
+  let $parent = $('li.context-menu__item').eq(0);
+  let $sub    = $parent.find('.context-menu--sub');
 
-  assert.equal($options[0].innerText, 'foo', 'shows parent without amount');
+  assert.equal($parent[0].innerText, 'foo', 'shows parent without amount');
   assert.equal($sub[0].innerText.trim(), 'bar (2)', 'shows sub with amount');
+});
+
+test('renders with icons', function(assert) {
+  this.set('item', {
+    label: 'foo',
+    icon: 'search'
+  });
+
+  this.render(hbs`{{context-menu-item item=item}}`);
+
+  let $option = $('li.context-menu__item').eq(0);
+  let $icon   = $option.find('.fa');
+
+  assert.equal($icon.length, 1, 'shows icon');
+  assert.ok($icon.hasClass('fa-search'), 'shows right font-awesome icon');
+  assert.ok($icon.hasClass('context-menu__item__icon'), 'has icon class');
 });

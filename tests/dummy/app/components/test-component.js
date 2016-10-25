@@ -21,6 +21,10 @@ export default Component.extend(contextMenuMixin, {
         }
       ]
     },
-    { label: 'Do something', action() { } }
+    {
+      label: 'Do something',
+      icon: 'search',
+      action() { }
+    }
   ]
 });
