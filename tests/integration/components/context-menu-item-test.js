@@ -39,8 +39,11 @@ test('renders with selection amount', function(assert) {
 test('calls action on clicking', function(assert) {
   assert.expect(2);
 
-  let contextSelection = this.set('selection', [1, 2]);
-  let contextDetails   = this.set('details', { content: 'DEF' });
+  let contextSelection = [1, 2];
+  let contextDetails   = { content: 'DEF' };
+
+  this.set('selection', contextSelection);
+  this.set('details', contextDetails);
 
   this.set('item', {
     label: 'foo',
@@ -90,7 +93,8 @@ test('disabled boolean property', function(assert) {
 test('disabled function property depending on selection', function(assert) {
   assert.expect(2);
 
-  let contextSelection = this.set('selection', [1, 2]);
+  let contextSelection = [1, 2];
+  this.set('selection', contextSelection);
 
   this.set('item', {
     label: 'foo',
@@ -115,8 +119,11 @@ test('disabled function property depending on selection', function(assert) {
 test('sub options', function(assert) {
   assert.expect(7);
 
-  let contextSelection = this.set('selection', { name: 'ABC' });
-  let contextDetails   = this.set('details', { foo: 'bar' });
+  let contextSelection = [{ name: 'ABC' }];
+  let contextDetails   = { foo: 'bar' };
+
+  this.set('selection', contextSelection);
+  this.set('details', contextDetails);
 
   this.set('item', {
     label: 'parent',
@@ -125,7 +132,7 @@ test('sub options', function(assert) {
       {
         label: 'sub 1',
         action(selection, details) {
-          assert.deepEqual(selection, [contextSelection],
+          assert.deepEqual(selection, contextSelection,
                            'calls sub action with selection');
           assert.equal(details, contextDetails,
                        'calls sub action with details');
