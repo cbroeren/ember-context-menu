@@ -1,5 +1,5 @@
 # Ember-context-menu
-[![GitHub version](https://badge.fury.io/gh/cbroeren%2Fember-context-menu.svg)](https://badge.fury.io/gh/cbroeren%2Fember-context-menu)
+[![npm version](https://badge.fury.io/js/ember-context-menu.svg)](https://badge.fury.io/js/ember-context-menu)
 [![Build Status](https://travis-ci.org/cbroeren/ember-context-menu.svg?branch=master)](https://travis-ci.org/cbroeren/ember-context-menu)
 [![Ember Observer Score](http://emberobserver.com/badges/ember-context-menu.svg)](http://emberobserver.com/addons/ember-context-menu)
 [![Code Climate](https://codeclimate.com/github/cbroeren/ember-context-menu/badges/gpa.svg)](https://codeclimate.com/github/cbroeren/ember-context-menu)
@@ -50,6 +50,24 @@ export default Ember.Component.extend(contextMenuMixin, {
   ]
 });
 ```
+
+### Label icons
+
+You can optionally set a icon to show in front of the label. Just give the name of the icon.
+
+```js
+  contextItems: [
+    {
+      label: 'do something',
+      icon: 'search',
+      action() { /* do something */ }
+    }
+  ]
+```
+
+The icons that you can use are the ones from font-awesome.
+See [http://fontawesome.io/icons/](http://fontawesome.io/icons/) for the icons
+to use. Special thanks to the [ember-font-awesome addon](https://github.com/martndemus/ember-font-awesome).
 
 ### Sub actions
 

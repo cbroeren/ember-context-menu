@@ -1,3 +1,7 @@
+{{#if item.icon}}
+  {{fa-icon item.icon class="context-menu__item__icon"}}
+{{/if}}
+
 {{item.label}} {{#if amount}}({{amount}}){{/if}}
 
 {{#if item.subActions}}
