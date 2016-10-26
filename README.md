@@ -53,7 +53,7 @@ export default Ember.Component.extend(contextMenuMixin, {
 
 ### Label icons
 
-You can optionally set a icon to show in front of the label. Just give the name of the icon.
+You can optionally set an icon to show in front of the label. Just give the name of the icon.
 
 ```js
   contextItems: [
