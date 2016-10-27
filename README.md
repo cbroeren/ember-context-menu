@@ -147,4 +147,6 @@ This could be either a boolean or a function which gets the selection.
 ![Example screenshot](docs/images/context-menu.png)
 ![Example screenshot with multiple selection](docs/images/context-menu-multiple.png)
 
-For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
+---
+
+Special thanks to [@Fabriquartz](https://github.com/Fabriquartz) ([Fabriquartz.com](http://fabriquartz.com))
