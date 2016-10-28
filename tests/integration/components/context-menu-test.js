@@ -53,13 +53,13 @@ test('renders with given items', function(assert) {
   let $items = $target.find('.context-menu__item');
   assert.equal($items.length, 2, 'renders given items');
 
-  assert.equal($items[0].innerText, 'edit', 'renders item 1 with label');
-  assert.equal($items[1].innerText, 'delete', 'renders item 2 with label');
+  assert.equal($items[0].innerText.trim(), 'edit', 'renders item 1 with label');
+  assert.equal($items[1].innerText.trim(), 'delete', 'renders item 2 with label');
 
   run(() => contextMenu.activate(e, [{ label: 'edit' }], [1, 2]));
 
   $items = $target.find('.context-menu__item');
-  assert.equal($items[0].innerText, 'edit (2)',
+  assert.equal($items[0].innerText.trim(), 'edit (2)',
                'renders item with selection amount');
 });
 

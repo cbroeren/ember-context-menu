@@ -20,7 +20,7 @@ test('renders with label', function(assert) {
   let $options = $('li.context-menu__item');
 
   assert.equal($options.length, 1, 'shows option');
-  assert.equal($options[0].innerText, 'foo', 'shows option label');
+  assert.equal($options[0].innerText.trim(), 'foo', 'shows option label');
 });
 
 test('renders with selection amount', function(assert) {
@@ -33,7 +33,7 @@ test('renders with selection amount', function(assert) {
   this.render(hbs`{{context-menu-item item=item selection=selection}}`);
 
   let $options = $('li.context-menu__item');
-  assert.equal($options[0].innerText, 'foo (2)', 'shows option label');
+  assert.equal($options[0].innerText.trim(), 'foo (2)', 'shows option label');
 });
 
 test('calls action on clicking', function(assert) {
@@ -149,7 +149,7 @@ test('sub options', function(assert) {
   let $options = $('li.context-menu__item');
   let $parent  = $options.eq(0);
 
-  assert.equal($parent[0].innerText, 'parent', 'shows parent label');
+  assert.equal($parent[0].innerText.trim(), 'parent', 'shows parent label');
   assert.ok($parent.hasClass('context-menu__item--parent'),
             'parent option has parent class');
 
@@ -192,7 +192,7 @@ test('selection amount only on parent', function(assert) {
   let $parent = $('li.context-menu__item').eq(0);
   let $sub    = $parent.find('.context-menu--sub');
 
-  assert.equal($parent[0].innerText, 'foo', 'shows parent without amount');
+  assert.equal($parent[0].innerText.trim(), 'foo', 'shows parent without amount');
   assert.equal($sub[0].innerText.trim(), 'bar (2)', 'shows sub with amount');
 });
 
