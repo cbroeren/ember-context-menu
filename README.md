@@ -144,6 +144,18 @@ This could be either a boolean or a function which gets the selection.
   ]
 ```
 
+### Custom styling
+
+The addon has some predefined styling to just get a quick start. You are able to change the styling of the complete menu by overwriting the styling for the following classes:
+- `context-menu`
+- `context-menu--sub`
+- `context-menu__item`
+- `context-menu__item--disabled`
+- `context-menu__item--parent`
+- `context-menu__item__label`
+
+(Set up by the [BEM convention](http://getbem.com/naming/))
+
 ![Example screenshot](docs/images/context-menu.png)
 ![Example screenshot with multiple selection](docs/images/context-menu-multiple.png)
 
