@@ -1,8 +1,9 @@
-{{#if item.icon}}
-  {{fa-icon item.icon class="context-menu__item__icon"}}
-{{/if}}
-
-{{item.label}} {{#if amount}}({{amount}}){{/if}}
+<span class="context-menu__item__label">
+  {{#if item.icon}}
+    {{fa-icon item.icon class="context-menu__item__icon"}}
+  {{/if}}
+  {{item.label}} {{#if amount}}({{amount}}){{/if}}
+</span>
 
 {{#if item.subActions}}
   {{#unless _disabled}}

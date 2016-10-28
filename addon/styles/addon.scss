@@ -33,14 +33,23 @@ body, html {
 
   &__item {
     position:        relative;
+    width:           100%;
     box-sizing:      border-box;
-    padding-left:    1em;
-    padding-right:   2em;
+    padding-left:    5px;
+    padding-right:   1.5em;
 
     line-height:     2em;
     list-style-type: none;
     cursor:          pointer;
-    white-space:     nowrap;
+
+    &__label {
+      display: inline-block;
+      width:   100%;
+
+      overflow:      hidden;
+      text-overflow: ellipsis;
+      white-space:   nowrap;
+    }
 
     &:hover {
       background-color: rgba(0, 0, 0, 0.05);
