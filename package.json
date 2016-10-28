@@ -1,6 +1,6 @@
 {
   "name": "ember-context-menu",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Ember addon for context-menu",
   "directories": {
     "doc": "doc",
