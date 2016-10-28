@@ -4,5 +4,9 @@
   height: 50px;
   padding: 5px;
 
-  border: 1px solid black;
+  border: 2px solid black;
+
+  &--selected {
+    background-color: rgba(0, 188, 212, 0.3);
+  }
 }
