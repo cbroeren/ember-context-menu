@@ -4,7 +4,8 @@
 [![Ember Observer Score](http://emberobserver.com/badges/ember-context-menu.svg)](http://emberobserver.com/addons/ember-context-menu)
 [![Code Climate](https://codeclimate.com/github/cbroeren/ember-context-menu/badges/gpa.svg)](https://codeclimate.com/github/cbroeren/ember-context-menu)
 
-An [ember-cli](http://www.ember-cli.com/) addon to add any context-menu to your components.
+An [ember-cli](http://www.ember-cli.com/) addon to add any right-click-menu to your components.
+[Try it here](https://cbroeren.github.com/ember-context-menu)
 
 ## Installing
 
