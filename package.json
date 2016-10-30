@@ -12,6 +12,7 @@
     "test": "ember try:each"
   },
   "repository": "https://github.com/cbroeren/ember-context-menu",
+  "demoURL": "https://cbroeren.github.com/ember-context-menu",
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -23,6 +24,7 @@
     "ember-cli": "2.6.3",
     "ember-cli-app-version": "^1.0.0",
     "ember-cli-dependency-checker": "^1.2.0",
+    "ember-cli-github-pages": "0.1.2",
     "ember-cli-htmlbars-inline-precompile": "^0.3.1",
     "ember-cli-inject-live-reload": "^1.4.0",
     "ember-cli-jshint": "^1.0.0",
@@ -38,7 +40,10 @@
     "loader.js": "^4.0.1"
   },
   "keywords": [
-    "ember-addon", "context-menu", "rightclick", "menu"
+    "ember-addon",
+    "context-menu",
+    "rightclick",
+    "menu"
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.6",
