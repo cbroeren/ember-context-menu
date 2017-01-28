@@ -47,6 +47,22 @@ test('renders on cursor position', function(assert) {
   assert.equal($contextMenu.position().top, 888, 'rerender top position');
 });
 
+test('renders left when at the right of the screen and les than 400 from right side',
+function(assert) {
+  let view = { window: { innerWidth: 1200 } };
+
+  run(() => contextMenu.activate({ clientX: 700, clientY: 500, view }, [1]));
+
+  let $contextMenu = $target.find('.context-menu');
+  assert.notOk($contextMenu.hasClass('context-menu--left'), 'renders right by default');
+
+  run(() => contextMenu.activate({ clientX: 850, clientY: 500, view }, [1]));
+
+  $contextMenu = $target.find('.context-menu');
+  assert.ok($contextMenu.hasClass('context-menu--left'),
+            'renders with left class when on the right of the screen');
+});
+
 test('renders with given items', function(assert) {
   run(() => contextMenu.activate(e, [{ label: 'edit' }, { label: 'delete' }]));
 

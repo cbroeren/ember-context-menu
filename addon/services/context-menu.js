@@ -4,10 +4,22 @@ import { assert } from 'ember-metal/utils';
 import get from 'ember-metal/get';
 import set from 'ember-metal/set';
 
+function renderLeft(xPosition, screenWidth) {
+  if (!xPosition || !screenWidth) { return false; }
+
+  let onRightHalf = xPosition > screenWidth * 0.5;
+  let spaceRight  = screenWidth - xPosition;
+
+  return onRightHalf && spaceRight < 400;
+}
+
 export default Service.extend({
   isActive: false,
 
-  activate({ clientX, clientY }, items, selection, details) {
+  activate(event, items, selection, details) {
+    let { clientX, clientY } = event;
+    let screenWidth = get(event, 'view.window.innerWidth');
+
     selection = selection ? [].concat(selection) : [];
 
     this.removeDeactivateHandler();
@@ -25,10 +37,11 @@ export default Service.extend({
       top:  clientY
     });
 
-    set(this, 'items',     items);
-    set(this, 'selection', selection);
-    set(this, 'details',   details);
-    set(this, 'isActive',  true);
+    set(this, 'items',      items);
+    set(this, 'selection',  selection);
+    set(this, 'details',    details);
+    set(this, 'renderLeft', renderLeft(clientX, screenWidth));
+    set(this, 'isActive',   true);
 
     this.addDeactivateHandler();
   },
