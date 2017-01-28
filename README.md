@@ -54,7 +54,9 @@ export default Ember.Component.extend(contextMenuMixin, {
 
 ### Label icons
 
-You can optionally set an icon to show in front of the label. Just give the name of the icon.
+:no_entry_sign: (Temporary removed from 0.2.0 until the ember-font-awesome will be updated)
+
+~~You can optionally set an icon to show in front of the label. Just give the name of the icon.~~
 
 ```js
   contextItems: [
@@ -66,9 +68,9 @@ You can optionally set an icon to show in front of the label. Just give the name
   ]
 ```
 
-The icons that you can use are the ones from font-awesome.
+~~The icons that you can use are the ones from font-awesome.
 See [http://fontawesome.io/icons/](http://fontawesome.io/icons/) for the icons
-to use. Special thanks to the [ember-font-awesome addon](https://github.com/martndemus/ember-font-awesome).
+to use. Special thanks to the [ember-font-awesome addon](https://github.com/martndemus/ember-font-awesome).~~
 
 ### Sub actions
 
