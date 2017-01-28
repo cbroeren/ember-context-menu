@@ -15,7 +15,8 @@ addons:
 
 cache:
   directories:
-    - node_modules
+    - $HOME/.npm
+    - $HOME/.cache # includes bowers cache
 
 branches:
   only:
@@ -24,6 +25,8 @@ branches:
 env:
   - EMBER_TRY_SCENARIO=default
   - EMBER_TRY_SCENARIO=ember-1.13
+  - EMBER_TRY_SCENARIO=ember-lts-2.4
+  - EMBER_TRY_SCENARIO=ember-lts-2.8
   - EMBER_TRY_SCENARIO=ember-release
   - EMBER_TRY_SCENARIO=ember-beta
   - EMBER_TRY_SCENARIO=ember-canary
@@ -39,7 +42,7 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
   - npm config set spin false
   - npm install -g bower
-  - npm install phantomjs-prebuilt
+  - bower --version
 
 install:
   - npm install
@@ -48,4 +51,4 @@ install:
 script:
   # Usually, it's ok to finish the test scenario without reverting
   #  to the addon's original dependency state, skipping "cleanup".
-  - ember try $EMBER_TRY_SCENARIO test --skip-cleanup
+  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup
