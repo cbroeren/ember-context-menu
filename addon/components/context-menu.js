@@ -16,7 +16,7 @@ export default Component.extend({
   selection: alias('contextMenu.selection'),
   details:   alias('contextMenu.details'),
 
-  init() {
+  didInsertElement() {
     this._super(...arguments);
     this.setWormholeTarget();
   },
