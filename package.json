@@ -1,6 +1,6 @@
 {
   "name": "ember-context-menu",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Ember addon for right-click--menu",
   "directories": {
     "doc": "doc",
