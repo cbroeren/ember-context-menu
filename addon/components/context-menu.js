@@ -11,10 +11,11 @@ export default Component.extend({
 
   contextMenu: service('context-menu'),
 
-  isActive:  alias('contextMenu.isActive'),
-  items:     alias('contextMenu.items'),
-  selection: alias('contextMenu.selection'),
-  details:   alias('contextMenu.details'),
+  isActive:   alias('contextMenu.isActive'),
+  renderLeft: alias('contextMenu.renderLeft'),
+  items:      alias('contextMenu.items'),
+  selection:  alias('contextMenu.selection'),
+  details:    alias('contextMenu.details'),
 
   init() {
     this._super(...arguments);
