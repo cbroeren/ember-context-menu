@@ -46,7 +46,7 @@ export default Ember.Component.extend(contextMenuMixin, {
   contextItems: [
     {
       label: 'do something',
-      action() { /* do something */ }
+      action(selection, details, event) { /* do something */ }
     }
   ]
 });
