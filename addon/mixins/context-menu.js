@@ -8,7 +8,7 @@ export default Mixin.create({
 
   contextMenu(e) {
     let contextMenu = get(this, 'contextMenuService');
-    let items       = get(this, 'contextItems');
+    let items       = get(this, 'contextItems') || this.computeContextItems();
     let selection   = get(this, 'contextSelection');
     let details     = get(this, 'contextDetails');
 
