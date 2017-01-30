@@ -1,14 +1,15 @@
 <span class="context-menu__item__label">
-  {{item.label}} {{#if amount}}({{amount}}){{/if}}
+  {{item.label}} {{#if _amount}}({{_amount}}){{/if}}
 </span>
 
 {{#if item.subActions}}
-  {{#unless _disabled}}
+  {{#unless isDisabled}}
     <ul class="context-menu--sub">
       {{#each item.subActions as |subItem|}}
         {{context-menu-item item=subItem
-                            details=details
-                            selection=selection}}
+                            amount=amount
+                            itemIsDisabled=itemIsDisabled
+                            clickAction=clickAction}}
       {{/each}}
     </ul>
   {{/unless}}

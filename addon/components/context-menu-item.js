@@ -13,49 +13,26 @@ export default Component.extend({
 
   classNames: ['context-menu__item'],
   classNameBindings: [
-    '_disabled:context-menu__item--disabled',
+    'isDisabled:context-menu__item--disabled',
     '_isParent:context-menu__item--parent'
   ],
 
+  _amount: computed('_isParent', 'amount', function() {
+    let amount = get(this, 'amount');
+
+    return !get(this, '_isParent') && amount > 1 && amount;
+  }),
+
   _isParent: bool('item.subActions.length'),
 
-  _selection: computed('selection.[]', function() {
-    return [].concat(get(this, 'selection'));
-  }),
-
-  amount: computed('_selection.length', '_isParent', function() {
-    let amount   = get(this, '_selection.length');
-    let isParent = get(this, '_isParent');
-
-    return amount > 1 && !isParent ? amount : null;
-  }),
-
-  _disabled: computed('item.{disabled,action,subActions.length}', '_selection',
-  function() {
-    let item       = get(this, 'item');
-    let disabled   = get(item, 'disabled');
-    let action     = get(item, 'action');
-    let subActions = get(item, 'subActions.length');
-    let selection  = get(this, '_selection');
-
-    if (!action && !subActions) {
-      return true;
-    }
-
-    if (typeof disabled === 'function') {
-      return disabled(selection);
-    }
-
-    return disabled;
+  isDisabled: computed('item.{disabled,action}', 'itemIsDisabled', function() {
+    let item = get(this, 'item');
+    return invokeAction(this, 'itemIsDisabled', item);
   }),
 
   click() {
-    if (!get(this, '_disabled') && !get(this, '_isParent')) {
-      let item      = get(this, 'item');
-      let selection = get(this, '_selection');
-      let details   = get(this, 'details');
-
-      invokeAction(item, 'action', selection, details);
+    if (!get(this, 'isDisabled') && !get(this, '_isParent')) {
+      invokeAction(this, 'clickAction', get(this, 'item'));
     }
   }
 });
