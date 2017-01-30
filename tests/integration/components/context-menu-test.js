@@ -63,6 +63,19 @@ function(assert) {
             'renders with left class when on the right of the screen');
 });
 
+test('closes on click anywhere', function(assert) {
+  run(() => contextMenu.activate(e, [1]));
+
+  let $contextMenu = $target.find('.context-menu');
+  assert.equal($contextMenu.length, 1, 'visible on active');
+
+  run(() => $(document.body).click());
+
+  $contextMenu = $target.find('.context-menu');
+  assert.equal(contextMenu.isActive, false, 'isActive is set false on click');
+  assert.equal($contextMenu.length, 0, 'closed on click anywhere');
+});
+
 test('renders with given items', function(assert) {
   run(() => contextMenu.activate(e, [{ label: 'edit' }, { label: 'delete' }]));
 
@@ -77,17 +90,4 @@ test('renders with given items', function(assert) {
   $items = $target.find('.context-menu__item');
   assert.equal($items[0].innerText.trim(), 'edit (2)',
                'renders item with selection amount');
-});
-
-test('closes on click anywhere', function(assert) {
-  run(() => contextMenu.activate(e, [1]));
-
-  let $contextMenu = $target.find('.context-menu');
-  assert.equal($contextMenu.length, 1, 'visible on active');
-
-  run(() => $(document.body).click());
-
-  $contextMenu = $target.find('.context-menu');
-  assert.equal(contextMenu.isActive, false, 'isActive is set false on click');
-  assert.equal($contextMenu.length, 0, 'closed on click anywhere');
 });

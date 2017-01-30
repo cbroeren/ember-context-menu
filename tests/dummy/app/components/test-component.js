@@ -40,7 +40,7 @@ export default Component.extend(contextMenuMixin, {
               label: 'Add',
               subActions: [
                 { label: 'Add 1', action(objects) { increment(objects, 1); } },
-                { label: 'Add 3', action(objects) { increment(objects, 3); } },
+                { label: 'Add 3', disabled: true, action(objects) { increment(objects, 3); } },
                 { label: 'Add 10', action(objects) { increment(objects, 10); } }
               ]
             }

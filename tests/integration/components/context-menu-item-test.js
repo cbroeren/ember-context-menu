@@ -28,51 +28,33 @@ test('renders with selection amount', function(assert) {
     label: 'foo'
   });
 
-  this.set('selection', [1, 2]);
-
-  this.render(hbs`{{context-menu-item item=item selection=selection}}`);
+  this.render(hbs`{{context-menu-item item=item amount=2}}`);
 
   let $options = $('li.context-menu__item');
   assert.equal($options[0].innerText.trim(), 'foo (2)', 'shows option label');
 });
 
-test('calls action on clicking', function(assert) {
-  assert.expect(2);
+test(`calls "clickAction" with item's action on clicking`, function(assert) {
+  assert.expect(1);
 
-  let contextSelection = [1, 2];
-  let contextDetails   = { content: 'DEF' };
-
-  this.set('selection', contextSelection);
-  this.set('details', contextDetails);
-
-  this.set('item', {
+  let item = this.set('item', {
     label: 'foo',
-    action(selection, details) {
-      assert.deepEqual(selection, contextSelection, 'calls action with selection');
-      assert.deepEqual(details, contextDetails, 'calls action with details');
+    action() {
+      // Do something
     }
   });
 
-  this.render(hbs`{{context-menu-item item=item
-                                      selection=selection
-                                      details=details}}`);
-
-  let $option = $('li.context-menu__item').eq(0);
-  $option.trigger('click');
-});
-
-test('disabled when no action set', function(assert) {
-  this.set('item', {
-    label: 'foo'
+  this.on('clickAction', (i) => {
+    assert.deepEqual(i, item, `calls "clickAction" with item's action`);
   });
 
-  this.render(hbs`{{context-menu-item item=item}}`);
+  this.render(hbs`{{context-menu-item item=item
+                                      clickAction=(action 'clickAction')}}`);
 
-  let $option = $('li.context-menu__item').eq(0);
-  assert.ok(hasDisabledClass($option), 'has disabled class');
+  $('li.context-menu__item').eq(0).click();
 });
 
-test('disabled boolean property', function(assert) {
+test('disabled item', function(assert) {
   assert.expect(1);
 
   this.set('item', {
@@ -83,68 +65,54 @@ test('disabled boolean property', function(assert) {
     }
   });
 
-  this.render(hbs`{{context-menu-item item=item}}`);
+  this.render(hbs`{{context-menu-item item=item
+                                      isDisabled=item.disabled}}`);
 
   let $option = $('li.context-menu__item').eq(0);
   assert.ok(hasDisabledClass($option), 'has disabled class');
   $option.trigger('click');
 });
 
-test('disabled function property depending on selection', function(assert) {
-  assert.expect(2);
+test('calls itemIsDisabled() with item to get isDisabled', function(assert) {
+  assert.expect(1);
 
-  let contextSelection = [1, 2];
-  this.set('selection', contextSelection);
-
-  this.set('item', {
+  let item = this.set('item', {
     label: 'foo',
-    disabled(selection) {
-      assert.deepEqual(selection, contextSelection,
-                       'calls disabled function with selection');
-      return true;
-    },
-    action() {
-      assert.notOk(true, 'calls disabled action');
-    }
+    disabled: true
+  });
+
+  this.on('itemIsDisabled', (i) => {
+    assert.deepEqual(i, item, 'calls itemIsDisabled() with item');
   });
 
   this.render(hbs`{{context-menu-item item=item
-                                      selection=selection}}`);
-
-  let $option = $('li.context-menu__item').eq(0);
-  assert.ok(hasDisabledClass($option), 'has disabled class');
-  $option.trigger('click');
+                                      itemIsDisabled=(action 'itemIsDisabled')}}`);
 });
 
 test('sub options', function(assert) {
-  assert.expect(7);
+  assert.expect(6);
 
-  let contextSelection = [{ name: 'ABC' }];
-  let contextDetails   = { foo: 'bar' };
-
-  this.set('selection', contextSelection);
-  this.set('details', contextDetails);
-
-  this.set('item', {
+  let item = this.set('item', {
     label: 'parent',
     action() { assert.notOk(true, 'calls parent action'); },
     subActions: [
       {
         label: 'sub 1',
-        action(selection, details) {
-          assert.deepEqual(selection, contextSelection,
-                           'calls sub action with selection');
-          assert.equal(details, contextDetails,
-                       'calls sub action with details');
+        action() {
+          // Do something
         }
       },
       { label: 'sub 2' }
     ]
   });
 
+  this.on('clickAction', (actionItem) => {
+    assert.deepEqual(actionItem, item.subActions[0],
+                     'calls "clickAction" with sub item"');
+  });
+
   this.render(hbs`{{context-menu-item item=item
-                                      selection=selection
-                                      details=details}}`);
+                                      clickAction=(action 'clickAction')}}`);
 
   let $options = $('li.context-menu__item');
   let $parent  = $options.eq(0);
@@ -153,7 +121,7 @@ test('sub options', function(assert) {
   assert.ok($parent.hasClass('context-menu__item--parent'),
             'parent option has parent class');
 
-  let $subMenu = $parent.find('.context-menu--sub');
+  let $subMenu    = $parent.find('.context-menu--sub');
   let $subOptions = $subMenu.find('li');
 
   assert.equal($subMenu.length, 1, 'shows subMenu');
@@ -171,7 +139,8 @@ test('if parent disabled, do not show subItems', function(assert) {
     subActions: [ { label: 'bar' } ]
   });
 
-  this.render(hbs`{{context-menu-item item=item}}`);
+  this.render(hbs`{{context-menu-item item=item
+                                      isDisabled=item.disabled}}`);
 
   let $parent  = $('li.context-menu__item').eq(0);
   let $subMenu = $parent.find('.context-menu--sub');
@@ -179,15 +148,13 @@ test('if parent disabled, do not show subItems', function(assert) {
   assert.equal($subMenu.length, 0, 'shows subMenu');
 });
 
-test('selection amount only on parent', function(assert) {
+test('selection amount only on leaf options', function(assert) {
   this.set('item', {
     label: 'foo',
     subActions: [ { label: 'bar' }]
   });
 
-  this.set('selection', [1, 2]);
-
-  this.render(hbs`{{context-menu-item item=item selection=selection}}`);
+  this.render(hbs`{{context-menu-item item=item amount=2}}`);
 
   let $parent = $('li.context-menu__item').eq(0);
   let $sub    = $parent.find('.context-menu--sub');

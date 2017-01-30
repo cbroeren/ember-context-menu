@@ -37,6 +37,7 @@ export default Service.extend({
       top:  clientY
     });
 
+    set(this, 'event',      event);
     set(this, 'items',      items);
     set(this, 'selection',  selection);
     set(this, 'details',    details);
