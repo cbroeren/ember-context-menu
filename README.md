@@ -33,6 +33,10 @@ import contextMenuMixin from 'ember-context-menu';
 
 export default Ember.Component.extend(contextMenuMixin, {
   // your component properties
+  
+  _contextMenu(e) {
+    // do anything before triggering the context-menu
+  }
 });
 
 ```
