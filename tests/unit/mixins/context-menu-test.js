@@ -47,6 +47,23 @@ function(assert) {
   subject.contextMenu(event);
 });
 
+test('triggering contextMenu calls pre-action _contextMenu before',
+function(assert) {
+  assert.expect(1);
+
+  set(subject, 'contextItems', []);
+
+  set(subject, '_contextMenu', (e) => {
+    assert.equal(e, event, 'calls pre-action with click event');
+  });
+
+  set(subject, 'contextMenuService', {
+    activate() { }
+  });
+
+  subject.contextMenu(event);
+});
+
 test('triggering contextMenu with optional selection and details',
 function(assert) {
   let contextItems = [
