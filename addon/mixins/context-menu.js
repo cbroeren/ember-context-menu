@@ -1,12 +1,15 @@
 import Mixin from 'ember-metal/mixin';
 
-import service from 'ember-service/inject';
-import get from 'ember-metal/get';
+import invokeAction from 'ember-invoke-action';
+import service      from 'ember-service/inject';
+import get          from 'ember-metal/get';
 
 export default Mixin.create({
   contextMenuService: service('context-menu'),
 
   contextMenu(e) {
+    invokeAction(this, '_contextMenu', e);
+
     let contextMenu = get(this, 'contextMenuService');
     let items       = get(this, 'contextItems');
     let selection   = get(this, 'contextSelection');
