@@ -1,14 +1,15 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
+import $   from 'jquery';
 
 function hasDisabledClass($element) {
   return $element.hasClass('context-menu__item--disabled');
 }
 
 moduleForComponent('context-menu/context-menu-item',
-                   'Integration | Component | {{context-menu-item}}', {
-  integration: true
-});
+                   'Integration | Component | {{context-menu-item}}',
+  { integration: true }
+);
 
 test('renders with label', function(assert) {
   this.set('item', {
@@ -58,7 +59,7 @@ test('disabled item', function(assert) {
   assert.expect(1);
 
   this.set('item', {
-    label: 'foo',
+    label:    'foo',
     disabled: true,
     action() {
       assert.notOk(true, 'calls disabled action');
@@ -77,7 +78,7 @@ test('calls itemIsDisabled() with item to get isDisabled', function(assert) {
   assert.expect(1);
 
   let item = this.set('item', {
-    label: 'foo',
+    label:    'foo',
     disabled: true
   });
 
@@ -85,8 +86,9 @@ test('calls itemIsDisabled() with item to get isDisabled', function(assert) {
     assert.deepEqual(i, item, 'calls itemIsDisabled() with item');
   });
 
-  this.render(hbs`{{context-menu-item item=item
-                                      itemIsDisabled=(action 'itemIsDisabled')}}`);
+  this.render(hbs`
+    {{context-menu-item item=item itemIsDisabled=(action 'itemIsDisabled')}}
+  `);
 });
 
 test('sub options', function(assert) {
@@ -95,6 +97,7 @@ test('sub options', function(assert) {
   let item = this.set('item', {
     label: 'parent',
     action() { assert.notOk(true, 'calls parent action'); },
+
     subActions: [
       {
         label: 'sub 1',
@@ -150,7 +153,7 @@ test('if parent disabled, do not show subItems', function(assert) {
 
 test('selection amount only on leaf options', function(assert) {
   this.set('item', {
-    label: 'foo',
+    label:      'foo',
     subActions: [ { label: 'bar' }]
   });
 
@@ -159,14 +162,14 @@ test('selection amount only on leaf options', function(assert) {
   let $parent = $('li.context-menu__item').eq(0);
   let $sub    = $parent.find('.context-menu--sub');
 
-  assert.equal($parent[0].innerText.trim(), 'foo', 'shows parent without amount');
-  assert.equal($sub[0].innerText.trim(), 'bar (2)', 'shows sub with amount');
+  assert.equal($parent[0].innerText.trim(), 'foo', 'parent without amount');
+  assert.equal($sub[0].innerText.trim(), 'bar (2)', 'sub with amount');
 });
 
 test('renders with icons', function(assert) {
   this.set('item', {
     label: 'foo',
-    icon: 'search'
+    icon:  'search'
   });
 
   this.render(hbs`{{context-menu-item item=item}}`);

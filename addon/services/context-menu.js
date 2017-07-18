@@ -3,6 +3,7 @@ import { assert } from 'ember-metal/utils';
 
 import get from 'ember-metal/get';
 import set from 'ember-metal/set';
+import $   from 'jquery';
 
 function renderLeft(xPosition, screenWidth) {
   if (!xPosition || !screenWidth) { return false; }

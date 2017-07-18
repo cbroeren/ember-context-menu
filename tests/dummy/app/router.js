@@ -3,5 +3,5 @@ import Router from 'ember-router';
 
 export default Router.extend({
   location: config.locationType,
-  rootURL: config.rootURL
+  rootURL:  config.rootURL
 });

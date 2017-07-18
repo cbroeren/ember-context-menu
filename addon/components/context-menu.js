@@ -7,6 +7,7 @@ import service   from 'ember-service/inject';
 import { htmlSafe } from 'ember-string';
 import computed, { reads } from 'ember-computed';
 import get from 'ember-metal/get';
+import $ from 'jquery';
 
 export default Component.extend({
   layout,

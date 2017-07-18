@@ -1,21 +1,23 @@
 import { moduleForComponent, test } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-
 import run from 'ember-runloop';
+import $   from 'jquery';
 
 let $target, contextMenu;
 let e = { clientX: 0, clientY: 0 };
 
-moduleForComponent('context-menu', 'Integration | Component | {{context-menu}}', {
-  integration: true,
+moduleForComponent('context-menu', 'Integration | Component | {{context-menu}}',
+  {
+    integration: true,
 
-  beforeEach() {
-    this.render(hbs`{{context-menu}}`);
+    beforeEach() {
+      this.render(hbs`{{context-menu}}`);
 
-    $target = $('#wormhole-context-menu');
-    contextMenu = this.container.lookup('service:context-menu');
+      $target = $('#wormhole-context-menu');
+      contextMenu = this.container.lookup('service:context-menu');
+    }
   }
-});
+);
 
 test('appends wormhole target to body', function(assert) {
   assert.equal($target.length, 1);
@@ -47,14 +49,15 @@ test('renders on cursor position', function(assert) {
   assert.equal($contextMenu.position().top, 888, 'rerender top position');
 });
 
-test('renders left when at the right of the screen and les than 400 from right side',
+test('renders left when at the right and less than 400 from right side',
 function(assert) {
   let view = { window: { innerWidth: 1200 } };
 
   run(() => contextMenu.activate({ clientX: 700, clientY: 500, view }, [1]));
 
   let $contextMenu = $target.find('.context-menu');
-  assert.notOk($contextMenu.hasClass('context-menu--left'), 'renders right by default');
+  assert.notOk($contextMenu.hasClass('context-menu--left'),
+               'renders right by default');
 
   run(() => contextMenu.activate({ clientX: 850, clientY: 500, view }, [1]));
 
@@ -77,13 +80,13 @@ test('closes on click anywhere', function(assert) {
 });
 
 test('renders with given items', function(assert) {
-  run(() => contextMenu.activate(e, [{ label: 'edit' }, { label: 'delete' }]));
+  run(() => contextMenu.activate(e, [{ label: 'edit' }, { label: 'del' }]));
 
   let $items = $target.find('.context-menu__item');
   assert.equal($items.length, 2, 'renders given items');
 
   assert.equal($items[0].innerText.trim(), 'edit', 'renders item 1 with label');
-  assert.equal($items[1].innerText.trim(), 'delete', 'renders item 2 with label');
+  assert.equal($items[1].innerText.trim(), 'del', 'renders item 2 with label');
 
   run(() => contextMenu.activate(e, [{ label: 'edit' }], [1, 2]));
 
