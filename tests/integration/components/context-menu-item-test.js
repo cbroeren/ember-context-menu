@@ -8,8 +8,7 @@ function hasDisabledClass($element) {
 
 moduleForComponent('context-menu/context-menu-item',
                    'Integration | Component | {{context-menu-item}}',
-  { integration: true }
-);
+                   { integration: true });
 
 test('renders with label', function(assert) {
   this.set('item', {
