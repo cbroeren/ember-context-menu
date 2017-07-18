@@ -15,7 +15,7 @@ function setTo(objects, value = 0) {
 }
 
 export default Component.extend(contextMenuMixin, {
-  classNames: ['test-component'],
+  classNames:        ['test-component'],
   classNameBindings: ['object.selected:test-component--selected'],
 
   contextSelection: [],
@@ -30,17 +30,19 @@ export default Component.extend(contextMenuMixin, {
           },
           action() { } },
         {
-          label: 'Multi actions',
+          label:      'Multi actions',
           subActions: [
             {
               label: 'Set to 5',
               action(objects) { setTo(objects, 5); }
             },
             {
-              label: 'Add',
+              label:      'Add',
               subActions: [
                 { label: 'Add 1', action(objects) { increment(objects, 1); } },
-                { label: 'Add 3', disabled: true, action(objects) { increment(objects, 3); } },
+                { label:    'Add 3',
+                  disabled: true,
+                  action(objects) { increment(objects, 3); } },
                 { label: 'Add 10', action(objects) { increment(objects, 10); } }
               ]
             }
@@ -48,7 +50,7 @@ export default Component.extend(contextMenuMixin, {
         },
         {
           label: 'Reset to 0',
-          icon: 'undo',
+          icon:  'undo',
           action(objects) { setTo(objects, 0); }
         }
       ];

@@ -3,7 +3,8 @@ import { moduleForComponent, test } from 'ember-qunit';
 let subject;
 
 moduleForComponent('context-menu', 'Unit | Component | context-menu', {
-  unit: true,
+  unit:  true,
+  needs: [ 'service:context-menu' ],
 
   beforeEach() {
     subject = this.subject();
@@ -21,10 +22,12 @@ test('isDisabled() returns item.disabled', function(assert) {
     action() { }
   };
 
-  assert.notOk(subject.get('itemIsDisabled')(item), 'not disabled when no disabled');
+  assert.notOk(subject.get('itemIsDisabled')(item),
+               'not disabled when no disabled');
 
   item.disabled = false;
-  assert.notOk(subject.get('itemIsDisabled')(item), 'not disabled when disabled=false');
+  assert.notOk(subject.get('itemIsDisabled')(item),
+               'not disabled when disabled=false');
 
   item.disabled = true;
   assert.ok(subject.get('itemIsDisabled')(item), 'disabled when disabled=true');

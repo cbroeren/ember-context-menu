@@ -11,7 +11,7 @@ export default Component.extend({
 
   tagName: 'li',
 
-  classNames: ['context-menu__item'],
+  classNames:        ['context-menu__item'],
   classNameBindings: [
     'isDisabled:context-menu__item--disabled',
     '_isParent:context-menu__item--parent'
