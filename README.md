@@ -1,3 +1,6 @@
+# GLIFFY MODIFICATION
+Installing this package directly from npm caused one issue. Ember failed to properly include the css. The easiest way to solve this issue was to delete that file. This necessitated creating our own repo.
+
 # Ember-context-menu
 [![npm version](https://badge.fury.io/js/ember-context-menu.svg)](https://badge.fury.io/js/ember-context-menu)
 [![Build Status](https://travis-ci.org/cbroeren/ember-context-menu.svg?branch=master)](https://travis-ci.org/cbroeren/ember-context-menu)
@@ -33,7 +36,7 @@ import contextMenuMixin from 'ember-context-menu';
 
 export default Ember.Component.extend(contextMenuMixin, {
   // your component properties
-  
+
   _contextMenu(e) {
     // do anything before triggering the context-menu
   }
@@ -106,7 +109,7 @@ You should add it as the contextSelection. This could be one or multiple items.
       action(selection) { /* do something with the selection */ }
     }
   ],
-  
+
   contextSelection: { foo: 'bar' }
 ```
 
@@ -124,7 +127,7 @@ It will be passed to the action as the second argument.
       action(selection, details) { /* do something */ }
     }
   ],
-  
+
   contextDetails: { foo: 'bar' }
 ```
 
