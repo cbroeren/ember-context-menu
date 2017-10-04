@@ -23,7 +23,6 @@ module.exports = {
                                   CallExpression: { arguments: "off" } }],
     "key-spacing": ["error", { multiLine: { beforeColon: false },
                                align:     { beforeColon: false, on: "value" } }],
-    "max-len":     ["error", { code: 85 }],
 
     "max-statements-per-line": "off",
     "new-cap":                 "off",

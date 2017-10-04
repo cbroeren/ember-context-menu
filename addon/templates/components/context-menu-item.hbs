@@ -17,3 +17,13 @@
     </ul>
   {{/unless}}
 {{/if}}
+
+{{#if item.filterConfig}}
+  {{#unless isDisabled}}
+    <ul class="context-menu--sub custom-sub">
+      {{component
+            item.filterConfig.name
+            options=item.filterConfig.options}}
+    </ul>
+  {{/unless}}
+{{/if}}
