@@ -70,5 +70,11 @@ export default Component.extend({
     return function(item) {
       invokeAction(item, 'action', selection, details, event);
     };
-  })
+  }),
+
+  actions: {
+    deactivate() {
+      get(this, 'contextMenu.deactivate')()
+    }
+  }
 });

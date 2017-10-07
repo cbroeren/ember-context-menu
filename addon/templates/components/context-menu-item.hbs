@@ -23,7 +23,8 @@
     <ul class="context-menu--sub custom-sub">
       {{component
             item.filterConfig.name
-            options=item.filterConfig.options}}
+            options=item.filterConfig.options
+            customClose=(action 'customClose')}}
     </ul>
   {{/unless}}
 {{/if}}
