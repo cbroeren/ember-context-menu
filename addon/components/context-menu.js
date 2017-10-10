@@ -28,6 +28,17 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
     this.setWormholeTarget();
+    window.addEventListener('click', this.closeOnClickOutside.bind(this));
+  },
+
+  closeOnClickOutside(event) {
+    /* quit early on clicks inside context-menu-container */
+    /* https://stackoverflow.com/a/36696086/2041765 */
+    let container = $('.context-menu-container').get(0);
+    let targetInsideContainer = container && container.contains(event.target);
+    if (!targetInsideContainer && !this.isDestroyed) {
+      get(this, 'contextMenu.deactivate')();
+    }
   },
 
   setWormholeTarget() {
@@ -70,5 +81,11 @@ export default Component.extend({
     return function(item) {
       invokeAction(item, 'action', selection, details, event);
     };
-  })
+  }),
+
+  actions: {
+    deactivate() {
+      get(this, 'contextMenu.deactivate')();
+    }
+  }
 });

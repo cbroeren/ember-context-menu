@@ -6,7 +6,8 @@
           {{context-menu-item item=item
                               amount=selection.length
                               itemIsDisabled=itemIsDisabled
-                              clickAction=clickAction}}
+                              clickAction=clickAction
+                              deactivate=(action "deactivate")}}
         {{/each}}
       </ul>
     </div>

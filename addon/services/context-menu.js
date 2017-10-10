@@ -3,7 +3,6 @@ import { assert } from 'ember-metal/utils';
 
 import get from 'ember-metal/get';
 import set from 'ember-metal/set';
-import $   from 'jquery';
 
 function renderLeft(xPosition, screenWidth) {
   if (!xPosition || !screenWidth) { return false; }
@@ -17,13 +16,16 @@ function renderLeft(xPosition, screenWidth) {
 export default Service.extend({
   isActive: false,
 
+  init(...args) {
+    this._super(...args);
+    this.deactivate = this.deactivate.bind(this);
+  },
+
   activate(event, items, selection, details) {
     let { clientX, clientY } = event;
     let screenWidth = get(event, 'view.window.innerWidth');
 
     selection = selection ? [].concat(selection) : [];
-
-    this.removeDeactivateHandler();
 
     if (clientX == null || clientY == null) {
       assert('You need to pass event to the context-menu activate()');
@@ -44,27 +46,9 @@ export default Service.extend({
     set(this, 'details',    details);
     set(this, 'renderLeft', renderLeft(clientX, screenWidth));
     set(this, 'isActive',   true);
-
-    this.addDeactivateHandler();
   },
 
-  willDestroy() {
-    this.removeDeactivateHandler();
-  },
-
-  removeDeactivateHandler() {
-    let deactivate = get(this, 'deactivate');
-
-    if (deactivate != null) {
-      $(document.body).off('click', deactivate);
-      set(this, 'deactivate', null);
-    }
-  },
-
-  addDeactivateHandler() {
-    let deactivate = () => set(this, 'isActive', false);
-    set(this, 'deactivate', deactivate);
-
-    $(document.body).one('click', deactivate);
+  deactivate() {
+    set(this, 'isActive', false);
   }
 });
