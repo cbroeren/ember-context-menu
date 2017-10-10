@@ -34,6 +34,7 @@ export default Component.extend({
 
   click() {
     if (!get(this, 'isDisabled') && !get(this, '_isParent')) {
+      this.get('deactivate')();
       invokeAction(this, 'clickAction', get(this, 'item'));
     }
   },
