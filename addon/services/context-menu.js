@@ -36,8 +36,8 @@ export default Service.extend({
     set(this, 'items',      items);
     set(this, 'selection',  selection);
     set(this, 'details',    details);
-    set(this, 'renderLeft', clickOnRight(clientX, screenWidth));
-    set(this, 'renderUp',   clickOnBottom(clientY, screenHeight));
+    set(this, 'renderLeft', renderLeft(clientX, screenWidth));
+    set(this, 'renderUp',   renderUp(clientY, screenHeight));
     set(this, 'isActive',   true);
   },
 
@@ -46,20 +46,19 @@ export default Service.extend({
   }
 });
 
-function clickOnRight(xPosition, screenWidth) {
-  if (!xPosition || !screenWidth) { return false; }
-
-  let onRightHalf = xPosition > screenWidth * 0.5;
+function renderLeft(xPosition, screenWidth) {
+  let onRightHalf = clickOnRightOrBottom(xPosition, screenWidth);
   let spaceRight  = screenWidth - xPosition;
 
   return onRightHalf && spaceRight < 400;
 }
 
-function clickOnBottom(yPosition, screenHeight) {
-  if (!yPosition || !screenHeight) { return false; }
+function renderUp(yPosition, screenHeight) {
+  return clickOnRightOrBottom(yPosition, screenHeight);
+}
 
-  let onRightHalf = yPosition > screenHeight * 0.5;
-  let spaceRight  = screenHeight - yPosition;
+function clickOnRightOrBottom(xOrYPosition, screenWidthOrHeight) {
+  if (!xOrYPosition || !screenWidthOrHeight) { return false; }
 
-  return onRightHalf && spaceRight < 400;
+  return xOrYPosition > screenWidthOrHeight / 2;
 }
