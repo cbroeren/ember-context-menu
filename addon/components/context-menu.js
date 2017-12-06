@@ -16,6 +16,7 @@ export default Component.extend({
 
   isActive:   reads('contextMenu.isActive'),
   renderLeft: reads('contextMenu.renderLeft'),
+  renderUp:   reads('contextMenu.renderUp'),
   items:      reads('contextMenu.items'),
   _selection: reads('contextMenu.selection'),
   details:    reads('contextMenu.details'),

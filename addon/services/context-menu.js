@@ -4,15 +4,6 @@ import { assert } from 'ember-metal/utils';
 import get from 'ember-metal/get';
 import set from 'ember-metal/set';
 
-function renderLeft(xPosition, screenWidth) {
-  if (!xPosition || !screenWidth) { return false; }
-
-  let onRightHalf = xPosition > screenWidth * 0.5;
-  let spaceRight  = screenWidth - xPosition;
-
-  return onRightHalf && spaceRight < 400;
-}
-
 export default Service.extend({
   isActive: false,
 
@@ -24,6 +15,7 @@ export default Service.extend({
   activate(event, items, selection, details) {
     let { clientX, clientY } = event;
     let screenWidth = get(event, 'view.window.innerWidth');
+    let screenHeight = get(event, 'view.window.innerHeight');
 
     selection = selection ? [].concat(selection) : [];
 
@@ -45,6 +37,7 @@ export default Service.extend({
     set(this, 'selection',  selection);
     set(this, 'details',    details);
     set(this, 'renderLeft', renderLeft(clientX, screenWidth));
+    set(this, 'renderUp',   renderUp(clientY, screenHeight));
     set(this, 'isActive',   true);
   },
 
@@ -52,3 +45,20 @@ export default Service.extend({
     set(this, 'isActive', false);
   }
 });
+
+function renderLeft(xPosition, screenWidth) {
+  let onRightHalf = clickOnRightOrBottom(xPosition, screenWidth);
+  let spaceRight  = screenWidth - xPosition;
+
+  return onRightHalf && spaceRight < 400;
+}
+
+function renderUp(yPosition, screenHeight) {
+  return clickOnRightOrBottom(yPosition, screenHeight);
+}
+
+function clickOnRightOrBottom(xOrYPosition, screenWidthOrHeight) {
+  if (!xOrYPosition || !screenWidthOrHeight) { return false; }
+
+  return xOrYPosition > screenWidthOrHeight / 2;
+}
