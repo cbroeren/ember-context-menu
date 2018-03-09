@@ -66,6 +66,24 @@ function(assert) {
             'renders with left class when on the right of the screen');
 });
 
+test('renders on vertical breakpoint when the estimated height is to big',
+function(assert) {
+  let view = { window: { innerHeight: 800 } };
+
+  run(() => contextMenu.activate({ clientX: 400, clientY: 500, view }, [{}, {}]));
+
+  let $contextMenu = $target.find('.context-menu-container');
+  assert.equal($contextMenu.position().top, 500,
+               'top position (smaller than breakpoint)');
+
+  run(() => contextMenu.activate({ clientX: 400, clientY: 780, view }, [{}, {}]));
+
+  $contextMenu = $target.find('.context-menu-container');
+  assert.equal($contextMenu.position().top, 706,
+               'top position (bigger than break proint)');
+
+});
+
 test('closes on click anywhere', function(assert) {
   run(() => contextMenu.activate(e, [1]));
 
