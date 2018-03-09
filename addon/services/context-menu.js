@@ -7,7 +7,7 @@ import $   from 'jquery';
 
 const itemHeight    = 32;
 const safetyMarginX = 400;
-const safetyMarginY = 30;
+const safetyMarginY = 32;
 
 function renderLeft(xPosition, screenWidth) {
   if (!xPosition || !screenWidth) { return false; }
@@ -22,7 +22,7 @@ function correctedPositionY(yPosition, screenHeight, itemCount) {
   let estimatedHeight = itemCount * itemHeight + safetyMarginY;
   let breakPoint      = screenHeight - estimatedHeight;
 
-  return yPosition > breakPoint && itemCount ? breakPoint : yPosition;
+  return yPosition > breakPoint ? breakPoint : yPosition;
 }
 
 export default Service.extend({

@@ -66,7 +66,7 @@ function(assert) {
             'renders with left class when on the right of the screen');
 });
 
-test('renders on vertical breakpoint when the estimated height is to big',
+test('renders on vertical breakpoint when the estimated height is too big',
 function(assert) {
   let view = { window: { innerHeight: 800 } };
 
