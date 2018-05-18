@@ -29,7 +29,7 @@ export default Component.extend({
   didInsertElement() {
     this._super(...arguments);
     this.setWormholeTarget();
-    window.addEventListener('click', this.closeOnClickOutside.bind(this));
+    window.addEventListener('mousedown', this.closeOnClickOutside.bind(this));
   },
 
   closeOnClickOutside(event) {
