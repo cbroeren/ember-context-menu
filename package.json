@@ -54,6 +54,7 @@
     "ember-cli-htmlbars": "^2.0.2",
     "ember-cli-sass": "7.0.0",
     "ember-invoke-action": "1.4.0",
+    "ember-svg-jar": "github:kriswill/ember-svg-jar#fix-for-addons",
     "ember-wormhole": "0.5.2"
   },
   "ember-addon": {

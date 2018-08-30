@@ -1,6 +1,8 @@
 <span class="context-menu__item__label">
   {{#if item.icon}}
     {{fa-icon item.icon class="context-menu__item__icon"}}
+  {{else if item.svg}}
+    {{svg-jar item.svg class="context-menu__item__svg"}}
   {{/if}}
   {{item.label}} {{#if _amount}}({{_amount}}){{/if}}
 </span>
