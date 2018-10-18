@@ -1,6 +1,6 @@
 {{#if isActive}}
   {{#ember-wormhole to="wormhole-context-menu"}}
-    <div class="context-menu-container" style={{position}}>
+    <div class="context-menu-container" style={{position}} oncontextmenu="return false;">
       <ul class="context-menu {{if renderLeft "context-menu--left"}} {{if renderUp "context-menu--up"}}">
         {{#each items as |item|}}
           {{context-menu-item item=item
