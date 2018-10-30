@@ -3,7 +3,7 @@ language: node_js
 node_js:
   - "6"
 
-sudo: required
+sudo: false
 dist: trusty
 
 addons:
@@ -18,12 +18,16 @@ branches:
     - master
 
 env:
-  - EMBER_TRY_SCENARIO=ember-default
-  - EMBER_TRY_SCENARIO=ember-lts-2.8
-  - EMBER_TRY_SCENARIO=ember-lts-2.12
-  - EMBER_TRY_SCENARIO=ember-release
-  - EMBER_TRY_SCENARIO=ember-beta
-  - EMBER_TRY_SCENARIO=ember-canary
+  global:
+    # See https://git.io/vdao3 for details.
+    - JOBS=1
+  matrix:
+    - EMBER_TRY_SCENARIO=ember-default
+    - EMBER_TRY_SCENARIO=ember-lts-2.8
+    - EMBER_TRY_SCENARIO=ember-lts-2.12
+    - EMBER_TRY_SCENARIO=ember-release
+    - EMBER_TRY_SCENARIO=ember-beta
+    - EMBER_TRY_SCENARIO=ember-canary
 
 matrix:
   fast_finish: true
