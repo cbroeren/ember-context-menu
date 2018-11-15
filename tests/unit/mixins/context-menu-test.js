@@ -16,7 +16,7 @@ module('Unit | Mixin | context-menu', function(hooks) {
   });
 
   test('has context-menu service', function(assert) {
-    assert.ok(this.subject.contextMenuService.activate, 'has contextMenu service');
+    assert.ok(this.subject.contextMenuService, 'has contextMenu service');
   });
 
   test('triggering contextMenu calls contextMenuService activate',
