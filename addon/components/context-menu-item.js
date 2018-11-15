@@ -1,10 +1,10 @@
 import layout from '../templates/components/context-menu-item';
 
-import invokeAction from 'ember-invoke-action';
+import Component         from '@ember/component';
+import { computed, get } from '@ember/object';
+import { bool }          from '@ember/object/computed';
 
-import Component from 'ember-component';
-import computed, { bool } from 'ember-computed';
-import get from 'ember-metal/get';
+import invokeAction from 'ember-invoke-action';
 
 export default Component.extend({
   layout,

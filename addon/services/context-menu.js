@@ -1,9 +1,7 @@
-import Service from 'ember-service';
-import { assert } from 'ember-metal/utils';
-
-import get from 'ember-metal/get';
-import set from 'ember-metal/set';
-import $   from 'jquery';
+import Service      from '@ember/service';
+import { assert }   from '@ember/debug';
+import { get, set } from '@ember/object';
+import $            from 'jquery';
 
 const itemHeight    = 32;
 const safetyMarginX = 400;

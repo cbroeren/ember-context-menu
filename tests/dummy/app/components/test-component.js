@@ -1,5 +1,5 @@
-import Component from 'ember-component';
-import computed from 'ember-computed';
+import Component from '@ember/component';
+import computed from '@ember/computed';
 import contextMenuMixin from 'ember-context-menu';
 
 function increment(objects, amount = 1) {
@@ -18,7 +18,7 @@ export default Component.extend(contextMenuMixin, {
   classNames:        ['test-component'],
   classNameBindings: ['object.selected:test-component--selected'],
 
-  contextSelection: [],
+  contextSelection: computed(function() { return []; }),
 
   contextItems: computed('object.selected', function() {
     if (this.get('object.selected')) {

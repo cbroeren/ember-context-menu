@@ -1,8 +1,8 @@
-import Mixin from 'ember-metal/mixin';
+import Mixin from '@ember/object/mixin';
 
-import invokeAction from 'ember-invoke-action';
-import service      from 'ember-service/inject';
-import get          from 'ember-metal/get';
+import { inject as service } from '@ember/service';
+import { get  }              from '@ember/object';
+import invokeAction          from 'ember-invoke-action';
 
 export default Mixin.create({
   contextMenuService: service('context-menu'),
