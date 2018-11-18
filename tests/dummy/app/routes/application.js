@@ -1,6 +1,6 @@
-import Route from 'ember-route';
-import { A } from 'ember-array/utils';
-import EmberObject from 'ember-object';
+import Route from '@ember/route';
+import { A } from '@ember/array';
+import EmberObject from '@ember/object';
 
 export default Route.extend({
   model() {

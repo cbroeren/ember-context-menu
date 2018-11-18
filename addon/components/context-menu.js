@@ -2,11 +2,11 @@ import layout from '../templates/components/context-menu';
 
 import invokeAction from 'ember-invoke-action';
 
-import Component from 'ember-component';
-import service   from 'ember-service/inject';
-import { htmlSafe } from 'ember-string';
-import computed, { reads } from 'ember-computed';
-import get from 'ember-metal/get';
+import Component from '@ember/component';
+import { inject as service } from '@ember/service';
+import { htmlSafe } from '@ember/string';
+import { reads } from '@ember/object/computed';
+import { computed, get } from '@ember/object';
 import $ from 'jquery';
 
 export default Component.extend({
