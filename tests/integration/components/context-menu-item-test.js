@@ -10,6 +10,19 @@ moduleForComponent('context-menu/context-menu-item',
                    'Integration | Component | {{context-menu-item}}',
                    { integration: true });
 
+test('renders with custom classNames', function(assert) {
+  this.set('item', {
+    label: 'foo',
+    class: 'my-customized-item'
+  });
+
+  this.render(hbs`{{context-menu-item item=item}}`);
+
+  let $options = $('li.context-menu__item');
+
+  assert.ok($options.hasClass('my-customized-item'));
+});
+
 test('renders with label', function(assert) {
   this.set('item', {
     label: 'foo'

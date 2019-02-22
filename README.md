@@ -44,12 +44,14 @@ export default Ember.Component.extend(contextMenuMixin, {
 ### Context items
 
 Your component needs at least an array of contextItems, which should have a label and an action.
+You will be able to pass custom classNames for context-items.
 
 ```js
 export default Ember.Component.extend(contextMenuMixin, {
   contextItems: [
     {
       label: 'do something',
+      class: 'my-custom-class another-class',
       action(selection, details, event) { /* do something */ }
     }
   ]
@@ -66,7 +68,7 @@ You can optionally set an icon to show in front of the label. Just give the name
   contextItems: [
     {
       label: 'do something',
-      icon: 'search',
+      icon:  'search',
       action() { /* do something */ }
     }
   ]

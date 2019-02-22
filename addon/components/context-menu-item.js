@@ -14,7 +14,8 @@ export default Component.extend({
   classNames:        ['context-menu__item'],
   classNameBindings: [
     'isDisabled:context-menu__item--disabled',
-    '_isParent:context-menu__item--parent'
+    '_isParent:context-menu__item--parent',
+    'customClass'
   ],
 
   _amount: computed('_isParent', 'amount', function() {
@@ -24,6 +25,10 @@ export default Component.extend({
   }),
 
   _isParent: bool('item.subActions.length'),
+
+  customClass: computed('item.class', function() {
+    return get(this, 'item.class');
+  }),
 
   isDisabled: computed('item.{disabled,action}', 'itemIsDisabled', function() {
     let item = get(this, 'item');
