@@ -2,7 +2,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 
 let subject;
 
-moduleForComponent('context-menu', 'Unit | Component | context-menu', {
+moduleForComponent('context-menu', {
   unit:  true,
   needs: [ 'service:context-menu' ],
 
