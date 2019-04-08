@@ -10,6 +10,7 @@ import { computed, get } from '@ember/object';
 import $ from 'jquery';
 
 export default Component.extend({
+  tagName: '',
   layout,
 
   contextMenu: service('context-menu'),
