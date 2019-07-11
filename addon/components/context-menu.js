@@ -7,7 +7,6 @@ import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
 import { reads } from '@ember/object/computed';
 import { computed, get } from '@ember/object';
-import $ from 'jquery';
 
 export default Component.extend({
   layout,
@@ -32,9 +31,9 @@ export default Component.extend({
 
   setWormholeTarget() {
     let id = 'wormhole-context-menu';
-    let $target = $(`#${id}`);
-    if ($target.length === 0) {
-      $('body').append(`<div id="${id}"></div>`);
+    let target = document.querySelectorAll(`#${id}`);
+    if (target.length === 0) {
+      document.body.append(`<div id="${id}"></div>`);
     }
   },
 
