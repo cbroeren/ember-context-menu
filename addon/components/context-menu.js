@@ -33,7 +33,7 @@ export default Component.extend({
     let id = 'wormhole-context-menu';
     let target = document.querySelectorAll(`#${id}`);
     if (target.length === 0) {
-      document.body.append(`<div id="${id}"></div>`);
+      document.body.insertAdjacentHTML('beforeend', `<div id="${id}"></div>`);
     }
   },
 
