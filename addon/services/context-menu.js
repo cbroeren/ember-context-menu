@@ -1,7 +1,6 @@
 import Service      from '@ember/service';
 import { assert }   from '@ember/debug';
 import { get, set } from '@ember/object';
-import $            from 'jquery';
 
 const itemHeight    = 32;
 const safetyMarginX = 400;
@@ -66,7 +65,7 @@ export default Service.extend({
     let deactivate = get(this, 'deactivate');
 
     if (deactivate != null) {
-      $(document.body).off('click', deactivate);
+      document.body.removeEventListener('click', deactivate);
       set(this, 'deactivate', null);
     }
   },
@@ -74,7 +73,6 @@ export default Service.extend({
   addDeactivateHandler() {
     let deactivate = () => set(this, 'isActive', false);
     set(this, 'deactivate', deactivate);
-
-    $(document.body).one('click', deactivate);
+    document.body.addEventListener('click', deactivate, { once: true });
   }
 });
