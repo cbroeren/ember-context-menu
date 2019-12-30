@@ -40,9 +40,10 @@ Usage
 This mixin is designed to add a context-menu to any component. Add it to your component like this:
 
 ```js
+import Component from '@ember/component';
 import contextMenuMixin from 'ember-context-menu';
 
-export default Ember.Component.extend(contextMenuMixin, {
+export default Component.extend(contextMenuMixin, {
   // your component properties
   
   _contextMenu(e) {
@@ -57,7 +58,9 @@ export default Ember.Component.extend(contextMenuMixin, {
 Your component needs at least an array of contextItems, which should have a label and an action.
 
 ```js
-export default Ember.Component.extend(contextMenuMixin, {
+import Component from '@ember/component';
+
+export default Component.extend(contextMenuMixin, {
   contextItems: [
     {
       label: 'do something',

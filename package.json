@@ -29,11 +29,11 @@
     "ember-cli-sass": "^10.0.1",
     "ember-font-awesome": "^3.1.1",
     "ember-invoke-action": "1.5.1",
-    "ember-wormhole": "0.5.2",
+    "ember-wormhole": "^0.5.5",
     "sass": "^1.24.0"
   },
   "devDependencies": {
-    "@ember/jquery": "^0.5.2",
+    "@ember/jquery": "^1.1.0",
     "@ember/optional-features": "^1.1.0",
     "@glimmer/component": "^1.0.0",
     "babel-eslint": "^10.0.3",
@@ -42,7 +42,7 @@
     "ember-cli": "~3.15.1",
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-eslint": "^5.1.0",
-    "ember-cli-github-pages": "^0.2.0",
+    "ember-cli-github-pages": "^0.2.2",
     "ember-cli-inject-live-reload": "^2.0.1",
     "ember-cli-sri": "^2.1.1",
     "ember-cli-template-lint": "^1.0.0-beta.3",
