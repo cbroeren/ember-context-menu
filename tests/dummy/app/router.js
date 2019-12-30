@@ -1,7 +1,10 @@
-import EmberRouter from '@ember/routing/route';
-import config      from './config/environment';
+import EmberRouter from '@ember/routing/router';
+import config from './config/environment';
 
-export default EmberRouter.extend({
-  location: config.locationType,
-  rootURL:  config.rootURL
+export default class Router extends EmberRouter {
+  location = config.locationType;
+  rootURL = config.rootURL;
+}
+
+Router.map(function() {
 });
