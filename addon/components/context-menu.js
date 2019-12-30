@@ -13,11 +13,11 @@ export default Component.extend({
 
   contextMenu: service('context-menu'),
 
-  isActive:   reads('contextMenu.isActive'),
+  isActive: reads('contextMenu.isActive'),
   renderLeft: reads('contextMenu.renderLeft'),
-  items:      reads('contextMenu.items'),
+  items: reads('contextMenu.items'),
   _selection: reads('contextMenu.selection'),
-  details:    reads('contextMenu.details'),
+  details: reads('contextMenu.details'),
   clickEvent: reads('contextMenu.event'),
 
   selection: computed('_selection.[]', function() {
@@ -44,10 +44,10 @@ export default Component.extend({
 
   itemIsDisabled: computed('selection.[]', 'details', function() {
     let selection = get(this, 'selection') || [];
-    let details   = get(this, 'details');
+    let details = get(this, 'details');
 
     return function(item) {
-      let disabled  = get(item, 'disabled');
+      let disabled = get(item, 'disabled');
 
       if (!get(item, 'action') && !get(item, 'subActions')) {
         return true;
@@ -63,8 +63,8 @@ export default Component.extend({
 
   clickAction: computed('selection.[]', 'details', function() {
     let selection = get(this, 'selection');
-    let details   = get(this, 'details');
-    let event     = get(this, 'clickEvent');
+    let details = get(this, 'details');
+    let event = get(this, 'clickEvent');
 
     return function(item) {
       invokeAction(item, 'action', selection, details, event);

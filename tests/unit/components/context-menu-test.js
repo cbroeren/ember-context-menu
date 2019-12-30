@@ -11,42 +11,55 @@ module('Unit | Component | context-menu', function(hooks) {
   });
 
   test('isDisabled() when no action set', function(assert) {
-    let item = { };
+    let item = {};
 
     assert.equal(subject.get('itemIsDisabled')(item), true);
   });
 
   test('isDisabled() returns item.disabled', function(assert) {
     let item = {
-      action() { }
+      action() {}
     };
 
-    assert.notOk(subject.get('itemIsDisabled')(item),
-                 'not disabled when no disabled');
+    assert.notOk(
+      subject.get('itemIsDisabled')(item),
+      'not disabled when no disabled'
+    );
 
     item.disabled = false;
-    assert.notOk(subject.get('itemIsDisabled')(item),
-                 'not disabled when disabled=false');
+    assert.notOk(
+      subject.get('itemIsDisabled')(item),
+      'not disabled when disabled=false'
+    );
 
     item.disabled = true;
-    assert.ok(subject.get('itemIsDisabled')(item), 'disabled when disabled=true');
+    assert.ok(
+      subject.get('itemIsDisabled')(item),
+      'disabled when disabled=true'
+    );
   });
 
   test(`isDisabled() depending on selection and details`, function(assert) {
     assert.expect(3);
 
     let contextSelection = subject.set('selection', [1, 2]);
-    let contextDetails   = subject.set('details', { foo: 'bar' });
+    let contextDetails = subject.set('details', { foo: 'bar' });
 
     let item = {
       label: 'foo',
-      action() { },
+      action() {},
       disabled(selection, details) {
-        assert.deepEqual(selection, contextSelection,
-                         'calls disabled function with selection');
+        assert.deepEqual(
+          selection,
+          contextSelection,
+          'calls disabled function with selection'
+        );
 
-        assert.deepEqual(details, contextDetails,
-                         'calls disabled function with details');
+        assert.deepEqual(
+          details,
+          contextDetails,
+          'calls disabled function with details'
+        );
 
         return true;
       }
@@ -55,18 +68,21 @@ module('Unit | Component | context-menu', function(hooks) {
     assert.equal(subject.get('itemIsDisabled')(item), true);
   });
 
-  test(`clickAction() calls item's action with selection and details`,
-  function(assert) {
+  test(`clickAction() calls item's action with selection and details`, function(assert) {
     assert.expect(3);
 
     let contextSelection = subject.set('selection', [1, 2]);
-    let contextDetails   = subject.set('details', { foo: 'bar' });
-    let contextEvent     = subject.set('clickEvent', { clientX: 45 });
+    let contextDetails = subject.set('details', { foo: 'bar' });
+    let contextEvent = subject.set('clickEvent', { clientX: 45 });
 
     let item = {
       label: 'foo',
       action(selection, details, event) {
-        assert.deepEqual(selection, contextSelection, 'calls action with selection');
+        assert.deepEqual(
+          selection,
+          contextSelection,
+          'calls action with selection'
+        );
         assert.deepEqual(details, contextDetails, 'calls action with details');
         assert.deepEqual(event, contextEvent, 'calls action with click event');
       }

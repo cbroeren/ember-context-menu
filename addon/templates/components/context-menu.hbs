@@ -3,10 +3,12 @@
     <div class="context-menu-container" style={{position}}>
       <ul class="context-menu {{if renderLeft "context-menu--left"}}">
         {{#each items as |item|}}
-          {{context-menu-item item=item
-                              amount=selection.length
-                              itemIsDisabled=itemIsDisabled
-                              clickAction=clickAction}}
+          {{context-menu-item
+            item=item
+            amount=selection.length
+            itemIsDisabled=itemIsDisabled
+            clickAction=clickAction
+          }}
         {{/each}}
       </ul>
     </div>

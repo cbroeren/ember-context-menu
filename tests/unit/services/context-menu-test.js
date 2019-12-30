@@ -16,7 +16,7 @@ module('Unit | Service | context menu', function(hooks) {
 
   test('activate() needs event and items', function(assert) {
     assert.throws(
-      () => contextMenu.activate({ }, null, 1),
+      () => contextMenu.activate({}, null, 1),
       'Throws error when no event passed for cursor position'
     );
 
@@ -26,25 +26,25 @@ module('Unit | Service | context menu', function(hooks) {
     );
   });
 
-  test('calling activate() sets position and content and activates',
-  function(assert) {
+  test('calling activate() sets position and content and activates', function(assert) {
     let items = [
-      { label: 'edit',   action() {} },
+      { label: 'edit', action() {} },
       { label: 'delete', action() {} }
     ];
 
     contextMenu.activate({ clientX: 400, clientY: 500 }, items);
 
-    assert.deepEqual(contextMenu.position, { left: 400, top: 500 },
-                     'sets position depending on cursor position');
+    assert.deepEqual(
+      contextMenu.position,
+      { left: 400, top: 500 },
+      'sets position depending on cursor position'
+    );
     assert.deepEqual(contextMenu.items, items, 'sets items');
     assert.equal(contextMenu.isActive, true, 'activated');
   });
 
   test('optional can pass a selection', function(assert) {
-    let items = [
-      { label: 'edit' }
-    ];
+    let items = [{ label: 'edit' }];
 
     contextMenu.activate({ clientX: 400, clientY: 500 }, items, [{}, {}]);
 
@@ -52,9 +52,7 @@ module('Unit | Service | context menu', function(hooks) {
   });
 
   test('optional can pass details', function(assert) {
-    let items = [
-      { label: 'edit' }
-    ];
+    let items = [{ label: 'edit' }];
 
     let details = { foo: 'bar', locationX: 400 };
 
