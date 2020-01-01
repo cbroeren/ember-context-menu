@@ -1,4 +1,5 @@
-# Ember-context-menu
+ember-context-menu
+==============================================================================
 [![npm version](https://badge.fury.io/js/ember-context-menu.svg)](https://badge.fury.io/js/ember-context-menu)
 [![Build Status](https://travis-ci.org/cbroeren/ember-context-menu.svg?branch=master)](https://travis-ci.org/cbroeren/ember-context-menu)
 [![Ember Observer Score](http://emberobserver.com/badges/ember-context-menu.svg)](http://emberobserver.com/addons/ember-context-menu)
@@ -7,7 +8,16 @@
 An [ember-cli](http://www.ember-cli.com/) addon to add any right-click-menu to your components.
 [Try it here](https://cbroeren.github.com/ember-context-menu)
 
-## Installing
+Compatibility
+------------------------------------------------------------------------------
+
+* Ember.js v3.8 or above
+* Ember CLI v2.13 or above
+* Node.js v8 or above
+
+
+Installation
+------------------------------------------------------------------------------
 
 In your application's directory:
 ```bash
@@ -22,16 +32,18 @@ In your application.hbs add the following:
 
 WARNING: You need to add this to make the context-menu work, and should add it just once in your application.
 
-## Usage
+Usage
+------------------------------------------------------------------------------
 
 ### Using the mixin
 
 This mixin is designed to add a context-menu to any component. Add it to your component like this:
 
 ```js
+import Component from '@ember/component';
 import contextMenuMixin from 'ember-context-menu';
 
-export default Ember.Component.extend(contextMenuMixin, {
+export default Component.extend(contextMenuMixin, {
   // your component properties
   
   _contextMenu(e) {
@@ -46,7 +58,9 @@ export default Ember.Component.extend(contextMenuMixin, {
 Your component needs at least an array of contextItems, which should have a label and an action.
 
 ```js
-export default Ember.Component.extend(contextMenuMixin, {
+import Component from '@ember/component';
+
+export default Component.extend(contextMenuMixin, {
   contextItems: [
     {
       label: 'do something',
@@ -169,3 +183,14 @@ The addon has some predefined styling to just get a quick start. You are able to
 ---
 
 Special thanks to [@Fabriquartz](https://github.com/Fabriquartz) ([Fabriquartz.com](http://fabriquartz.com))
+
+Contributing
+------------------------------------------------------------------------------
+
+See the [Contributing](CONTRIBUTING.md) guide for details.
+
+
+License
+------------------------------------------------------------------------------
+
+This project is licensed under the [MIT License](LICENSE.md).

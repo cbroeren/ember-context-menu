@@ -1,8 +1,8 @@
 import Mixin from '@ember/object/mixin';
 
 import { inject as service } from '@ember/service';
-import { get  }              from '@ember/object';
-import invokeAction          from 'ember-invoke-action';
+import { get } from '@ember/object';
+import invokeAction from 'ember-invoke-action';
 
 export default Mixin.create({
   contextMenuService: service('context-menu'),
@@ -11,9 +11,9 @@ export default Mixin.create({
     invokeAction(this, '_contextMenu', e);
 
     let contextMenu = get(this, 'contextMenuService');
-    let items       = get(this, 'contextItems');
-    let selection   = get(this, 'contextSelection');
-    let details     = get(this, 'contextDetails');
+    let items = get(this, 'contextItems');
+    let selection = get(this, 'contextSelection');
+    let details = get(this, 'contextDetails');
 
     if (items && get(items, 'length')) {
       e.preventDefault();

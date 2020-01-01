@@ -1,8 +1,8 @@
 import layout from '../templates/components/context-menu-item';
 
-import Component         from '@ember/component';
+import Component from '@ember/component';
 import { computed, get } from '@ember/object';
-import { bool }          from '@ember/object/computed';
+import { bool } from '@ember/object/computed';
 
 import invokeAction from 'ember-invoke-action';
 
@@ -11,7 +11,7 @@ export default Component.extend({
 
   tagName: 'li',
 
-  classNames:        ['context-menu__item'],
+  classNames: ['context-menu__item'],
   classNameBindings: [
     'isDisabled:context-menu__item--disabled',
     '_isParent:context-menu__item--parent'

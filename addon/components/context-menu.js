@@ -7,18 +7,17 @@ import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
 import { reads } from '@ember/object/computed';
 import { computed, get } from '@ember/object';
-import $ from 'jquery';
 
 export default Component.extend({
   layout,
 
   contextMenu: service('context-menu'),
 
-  isActive:   reads('contextMenu.isActive'),
+  isActive: reads('contextMenu.isActive'),
   renderLeft: reads('contextMenu.renderLeft'),
-  items:      reads('contextMenu.items'),
+  items: reads('contextMenu.items'),
   _selection: reads('contextMenu.selection'),
-  details:    reads('contextMenu.details'),
+  details: reads('contextMenu.details'),
   clickEvent: reads('contextMenu.event'),
 
   selection: computed('_selection.[]', function() {
@@ -32,9 +31,9 @@ export default Component.extend({
 
   setWormholeTarget() {
     let id = 'wormhole-context-menu';
-    let $target = $(`#${id}`);
-    if ($target.length === 0) {
-      $('body').append(`<div id="${id}"></div>`);
+    let target = document.querySelectorAll(`#${id}`);
+    if (target.length === 0) {
+      document.body.insertAdjacentHTML('beforeend', `<div id="${id}"></div>`);
     }
   },
 
@@ -45,10 +44,10 @@ export default Component.extend({
 
   itemIsDisabled: computed('selection.[]', 'details', function() {
     let selection = get(this, 'selection') || [];
-    let details   = get(this, 'details');
+    let details = get(this, 'details');
 
     return function(item) {
-      let disabled  = get(item, 'disabled');
+      let disabled = get(item, 'disabled');
 
       if (!get(item, 'action') && !get(item, 'subActions')) {
         return true;
@@ -64,8 +63,8 @@ export default Component.extend({
 
   clickAction: computed('selection.[]', 'details', function() {
     let selection = get(this, 'selection');
-    let details   = get(this, 'details');
-    let event     = get(this, 'clickEvent');
+    let details = get(this, 'details');
+    let event = get(this, 'clickEvent');
 
     return function(item) {
       invokeAction(item, 'action', selection, details, event);

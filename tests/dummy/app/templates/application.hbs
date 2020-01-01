@@ -1,13 +1,17 @@
-<h1>Ember-context-menu</h1>
+<h1>
+  Ember-context-menu
+</h1>
 
 <p>
   Click to select a block, right-click *on selected blocks* for the context-menu.
 </p>
 
 {{#each model as |object|}}
-  {{test-component click=(action "toggleSelectObject" object)
-                   object=object
-                   contextSelection=selection}}
+  {{test-component
+    click=(action "toggleSelectObject" object)
+    object=object
+    contextSelection=selection
+  }}
 {{/each}}
 
 <p>
