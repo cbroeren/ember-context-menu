@@ -180,6 +180,16 @@ The addon has some predefined styling to just get a quick start. You are able to
 ![Example screenshot](docs/images/context-menu.png)
 ![Example screenshot with multiple selection](docs/images/context-menu-multiple.png)
 
+### Testing
+
+Test helpers are provided to make it easier to trigger the context menu to open.
+
+```js
+import { triggerContextMenu } from 'ember-context-menu/test-support';
+
+triggerContextMenu('.my-class-selector');
+```
+
 ---
 
 Special thanks to [@Fabriquartz](https://github.com/Fabriquartz) ([Fabriquartz.com](http://fabriquartz.com))
