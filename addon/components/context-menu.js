@@ -9,6 +9,7 @@ import { reads } from '@ember/object/computed';
 import { computed, get } from '@ember/object';
 
 export default Component.extend({
+  tagName: '',
   layout,
 
   contextMenu: service('context-menu'),
