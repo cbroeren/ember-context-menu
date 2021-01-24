@@ -1,6 +1,6 @@
 /**
  * Allows for easily triggering the context menu to open for testing
- * @param {*} selector 
+ * @param {*} selector
  */
 export function triggerContextMenu(selector) {
   const element = document.querySelector(selector).parentElement;
@@ -12,7 +12,7 @@ export function triggerContextMenu(selector) {
     button: 2,
     buttons: 0,
     clientX: element.getBoundingClientRect().x,
-    clientY: element.getBoundingClientRect().y
+    clientY: element.getBoundingClientRect().y,
   });
 
   element.dispatchEvent(contextMenuEvent);

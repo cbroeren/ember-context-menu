@@ -3,18 +3,18 @@ import { setupTest } from 'ember-qunit';
 
 let contextMenu;
 
-module('Unit | Service | context menu', function(hooks) {
+module('Unit | Service | context menu', function (hooks) {
   setupTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     contextMenu = this.owner.lookup('service:context-menu');
   });
 
-  test('by default not active', function(assert) {
+  test('by default not active', function (assert) {
     assert.equal(contextMenu.isActive, false);
   });
 
-  test('activate() needs event and items', function(assert) {
+  test('activate() needs event and items', function (assert) {
     assert.throws(
       () => contextMenu.activate({}, null, 1),
       'Throws error when no event passed for cursor position'
@@ -26,10 +26,10 @@ module('Unit | Service | context menu', function(hooks) {
     );
   });
 
-  test('calling activate() sets position and content and activates', function(assert) {
+  test('calling activate() sets position and content and activates', function (assert) {
     let items = [
       { label: 'edit', action() {} },
-      { label: 'delete', action() {} }
+      { label: 'delete', action() {} },
     ];
 
     contextMenu.activate({ clientX: 400, clientY: 500 }, items);
@@ -43,7 +43,7 @@ module('Unit | Service | context menu', function(hooks) {
     assert.equal(contextMenu.isActive, true, 'activated');
   });
 
-  test('optional can pass a selection', function(assert) {
+  test('optional can pass a selection', function (assert) {
     let items = [{ label: 'edit' }];
 
     contextMenu.activate({ clientX: 400, clientY: 500 }, items, [{}, {}]);
@@ -51,7 +51,7 @@ module('Unit | Service | context menu', function(hooks) {
     assert.equal(contextMenu.selection.length, 2, 'sets selection array');
   });
 
-  test('optional can pass details', function(assert) {
+  test('optional can pass details', function (assert) {
     let items = [{ label: 'edit' }];
 
     let details = { foo: 'bar', locationX: 400 };

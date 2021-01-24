@@ -8,31 +8,31 @@ import { click } from '@ember/test-helpers';
 let $target, contextMenu;
 let e = { clientX: 0, clientY: 0 };
 
-module('Integration | Component | {{context-menu}}', function(hooks) {
+module('Integration | Component | {{context-menu}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(async function() {
+  hooks.beforeEach(async function () {
     await render(hbs`{{context-menu}}`);
 
     $target = document.querySelector('#wormhole-context-menu');
     contextMenu = this.owner.lookup('service:context-menu');
   });
 
-  test('appends wormhole target to body', function(assert) {
+  test('appends wormhole target to body', function (assert) {
     assert.ok($target);
   });
 
-  test('hidden by default', function(assert) {
+  test('hidden by default', function (assert) {
     assert.dom('.context-menu', $target).doesNotExist();
   });
 
-  test('visible on activating context-menu', function(assert) {
+  test('visible on activating context-menu', function (assert) {
     run(() => contextMenu.activate(e, [1]));
 
     assert.dom('.context-menu', $target).exists();
   });
 
-  test('renders on cursor position', function(assert) {
+  test('renders on cursor position', function (assert) {
     run(() => contextMenu.activate({ clientX: 400, clientY: 500 }, [1]));
 
     let $contextMenu = $target.querySelector('.context-menu-container');
@@ -46,7 +46,7 @@ module('Integration | Component | {{context-menu}}', function(hooks) {
     assert.equal($contextMenu.offsetTop, 888, 'rerender top position');
   });
 
-  test('renders left when at the right and less than 400 from right side', function(assert) {
+  test('renders left when at the right and less than 400 from right side', function (assert) {
     let view = { window: { innerWidth: 1200 } };
 
     run(() => contextMenu.activate({ clientX: 700, clientY: 500, view }, [1]));
@@ -66,7 +66,7 @@ module('Integration | Component | {{context-menu}}', function(hooks) {
     );
   });
 
-  test('renders on vertical breakpoint when the estimated height is too big', function(assert) {
+  test('renders on vertical breakpoint when the estimated height is too big', function (assert) {
     let view = { window: { innerHeight: 800 } };
     let brakePoint = 800 - (2 * 32 + 32); // (itemCount * itemHeight + safetyMarginY)
 
@@ -93,7 +93,7 @@ module('Integration | Component | {{context-menu}}', function(hooks) {
     );
   });
 
-  test('closes on click anywhere', function(assert) {
+  test('closes on click anywhere', function (assert) {
     run(() => contextMenu.activate(e, [1]));
 
     assert.dom('.context-menu', $target).exists('visible on active');
@@ -106,7 +106,7 @@ module('Integration | Component | {{context-menu}}', function(hooks) {
       .doesNotExist('closed on click anywhere');
   });
 
-  test('renders with given items', function(assert) {
+  test('renders with given items', function (assert) {
     run(() => contextMenu.activate(e, [{ label: 'edit' }, { label: 'del' }]));
 
     let $items = $target.querySelectorAll('.context-menu__item');

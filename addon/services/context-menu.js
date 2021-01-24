@@ -46,7 +46,7 @@ export default Service.extend({
 
     set(this, 'position', {
       left: clientX,
-      top: correctedPositionY(clientY, screenHeight, get(items, 'length'))
+      top: correctedPositionY(clientY, screenHeight, items.length),
     });
 
     set(this, 'event', event);
@@ -64,7 +64,7 @@ export default Service.extend({
   },
 
   removeDeactivateHandler() {
-    let deactivate = get(this, 'deactivate');
+    let deactivate = this.deactivate;
 
     if (deactivate != null) {
       document.body.removeEventListener('click', deactivate);
@@ -76,5 +76,5 @@ export default Service.extend({
     let deactivate = () => set(this, 'isActive', false);
     set(this, 'deactivate', deactivate);
     document.body.addEventListener('click', deactivate, { once: true });
-  }
+  },
 });

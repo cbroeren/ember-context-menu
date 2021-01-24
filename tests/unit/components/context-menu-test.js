@@ -3,22 +3,22 @@ import { setupTest } from 'ember-qunit';
 
 let subject;
 
-module('Unit | Component | context-menu', function(hooks) {
+module('Unit | Component | context-menu', function (hooks) {
   setupTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     subject = this.owner.factoryFor('component:context-menu').create();
   });
 
-  test('isDisabled() when no action set', function(assert) {
+  test('isDisabled() when no action set', function (assert) {
     let item = {};
 
     assert.equal(subject.get('itemIsDisabled')(item), true);
   });
 
-  test('isDisabled() returns item.disabled', function(assert) {
+  test('isDisabled() returns item.disabled', function (assert) {
     let item = {
-      action() {}
+      action() {},
     };
 
     assert.notOk(
@@ -39,7 +39,7 @@ module('Unit | Component | context-menu', function(hooks) {
     );
   });
 
-  test(`isDisabled() depending on selection and details`, function(assert) {
+  test(`isDisabled() depending on selection and details`, function (assert) {
     assert.expect(3);
 
     let contextSelection = subject.set('selection', [1, 2]);
@@ -62,13 +62,13 @@ module('Unit | Component | context-menu', function(hooks) {
         );
 
         return true;
-      }
+      },
     };
 
     assert.equal(subject.get('itemIsDisabled')(item), true);
   });
 
-  test(`clickAction() calls item's action with selection and details`, function(assert) {
+  test(`clickAction() calls item's action with selection and details`, function (assert) {
     assert.expect(3);
 
     let contextSelection = subject.set('selection', [1, 2]);
@@ -85,7 +85,7 @@ module('Unit | Component | context-menu', function(hooks) {
         );
         assert.deepEqual(details, contextDetails, 'calls action with details');
         assert.deepEqual(event, contextEvent, 'calls action with click event');
-      }
+      },
     };
 
     subject.get('clickAction')(item);

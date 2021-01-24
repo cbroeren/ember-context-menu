@@ -21,8 +21,8 @@ export default Component.extend({
   details: reads('contextMenu.details'),
   clickEvent: reads('contextMenu.event'),
 
-  selection: computed('_selection.[]', function() {
-    return [].concat(get(this, '_selection'));
+  selection: computed('_selection.[]', function () {
+    return [].concat(this._selection);
   }),
 
   didInsertElement() {
@@ -38,19 +38,19 @@ export default Component.extend({
     }
   },
 
-  position: computed('contextMenu.position.{left,top}', function() {
+  position: computed('contextMenu.position.{left,top}', function () {
     let { left, top } = get(this, 'contextMenu.position') || {};
     return htmlSafe(`left: ${left}px; top: ${top}px;`);
   }),
 
-  itemIsDisabled: computed('selection.[]', 'details', function() {
-    let selection = get(this, 'selection') || [];
-    let details = get(this, 'details');
+  itemIsDisabled: computed('selection.[]', 'details', function () {
+    let selection = this.selection || [];
+    let details = this.details;
 
-    return function(item) {
-      let disabled = get(item, 'disabled');
+    return function (item) {
+      let disabled = item.disabled;
 
-      if (!get(item, 'action') && !get(item, 'subActions')) {
+      if (!item.action && !item.subActions) {
         return true;
       }
 
@@ -62,13 +62,13 @@ export default Component.extend({
     };
   }),
 
-  clickAction: computed('selection.[]', 'details', function() {
-    let selection = get(this, 'selection');
-    let details = get(this, 'details');
-    let event = get(this, 'clickEvent');
+  clickAction: computed('clickEvent', 'details', 'selection.[]', function () {
+    let selection = this.selection;
+    let details = this.details;
+    let event = this.clickEvent;
 
-    return function(item) {
+    return function (item) {
       invokeAction(item, 'action', selection, details, event);
     };
-  })
+  }),
 });

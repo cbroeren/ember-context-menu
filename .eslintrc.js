@@ -20,7 +20,11 @@ module.exports = {
     browser: true,
   },
   rules: {
+    // TODO: remove these after glimmer refactor
+    'ember/no-component-lifecycle-hooks': 'off',
+    'ember/no-get': 'off',
     'ember/no-jquery': 'error',
+    'ember/no-mixins': 'off',
     'ember/no-new-mixins': 'off',
   },
   overrides: [

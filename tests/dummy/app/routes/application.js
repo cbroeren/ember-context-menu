@@ -9,7 +9,7 @@ export default Route.extend({
       EmberObject.create({ count: 0 }),
       EmberObject.create({ count: 0 }),
       EmberObject.create({ count: 0 }),
-      EmberObject.create({ count: 0 })
+      EmberObject.create({ count: 0 }),
     ]);
-  }
+  },
 });
