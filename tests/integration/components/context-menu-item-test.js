@@ -8,18 +8,18 @@ function hasDisabledClass($element) {
   return $element.classList.contains('context-menu__item--disabled');
 }
 
-module('Integration | Component | {{context-menu-item}}', function(hooks) {
+module('Integration | Component | {{context-menu-item}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.actions = {};
     this.send = (actionName, ...args) =>
       this.actions[actionName].apply(this, args);
   });
 
-  test('renders with label', async function(assert) {
+  test('renders with label', async function (assert) {
     this.set('item', {
-      label: 'foo'
+      label: 'foo',
     });
 
     await render(hbs`{{context-menu-item item=item}}`);
@@ -30,9 +30,9 @@ module('Integration | Component | {{context-menu-item}}', function(hooks) {
     assert.equal($options[0].innerText.trim(), 'foo', 'shows option label');
   });
 
-  test('renders with selection amount', async function(assert) {
+  test('renders with selection amount', async function (assert) {
     this.set('item', {
-      label: 'foo'
+      label: 'foo',
     });
 
     await render(hbs`{{context-menu-item item=item amount=2}}`);
@@ -41,17 +41,17 @@ module('Integration | Component | {{context-menu-item}}', function(hooks) {
     assert.equal($options[0].innerText.trim(), 'foo (2)', 'shows option label');
   });
 
-  test(`calls "clickAction" with item's action on clicking`, async function(assert) {
+  test(`calls "clickAction" with item's action on clicking`, async function (assert) {
     assert.expect(1);
 
     let item = this.set('item', {
       label: 'foo',
       action() {
         // Do something
-      }
+      },
     });
 
-    this.actions.clickAction = i => {
+    this.actions.clickAction = (i) => {
       assert.deepEqual(i, item, `calls "clickAction" with item's action`);
     };
 
@@ -61,7 +61,7 @@ module('Integration | Component | {{context-menu-item}}', function(hooks) {
     await click(find('li.context-menu__item'));
   });
 
-  test('disabled item', async function(assert) {
+  test('disabled item', async function (assert) {
     assert.expect(1);
 
     this.set('item', {
@@ -69,7 +69,7 @@ module('Integration | Component | {{context-menu-item}}', function(hooks) {
       disabled: true,
       action() {
         assert.notOk(true, 'calls disabled action');
-      }
+      },
     });
 
     await render(hbs`{{context-menu-item item=item
@@ -80,15 +80,15 @@ module('Integration | Component | {{context-menu-item}}', function(hooks) {
     await click($option);
   });
 
-  test('calls itemIsDisabled() with item to get isDisabled', async function(assert) {
+  test('calls itemIsDisabled() with item to get isDisabled', async function (assert) {
     assert.expect(1);
 
     let item = this.set('item', {
       label: 'foo',
-      disabled: true
+      disabled: true,
     });
 
-    this.actions.itemIsDisabled = i => {
+    this.actions.itemIsDisabled = (i) => {
       assert.deepEqual(i, item, 'calls itemIsDisabled() with item');
     };
 
@@ -97,7 +97,7 @@ module('Integration | Component | {{context-menu-item}}', function(hooks) {
     `);
   });
 
-  test('sub options', async function(assert) {
+  test('sub options', async function (assert) {
     assert.expect(6);
 
     let item = this.set('item', {
@@ -111,13 +111,13 @@ module('Integration | Component | {{context-menu-item}}', function(hooks) {
           label: 'sub 1',
           action() {
             // Do something
-          }
+          },
         },
-        { label: 'sub 2' }
-      ]
+        { label: 'sub 2' },
+      ],
     });
 
-    this.actions.clickAction = actionItem => {
+    this.actions.clickAction = (actionItem) => {
       assert.deepEqual(
         actionItem,
         item.subActions[0],
@@ -148,11 +148,11 @@ module('Integration | Component | {{context-menu-item}}', function(hooks) {
     await click($subOptions[0]);
   });
 
-  test('if parent disabled, do not show subItems', async function(assert) {
+  test('if parent disabled, do not show subItems', async function (assert) {
     this.set('item', {
       label: 'foo',
       disabled: true,
-      subActions: [{ label: 'bar' }]
+      subActions: [{ label: 'bar' }],
     });
 
     await render(hbs`{{context-menu-item item=item
@@ -164,10 +164,10 @@ module('Integration | Component | {{context-menu-item}}', function(hooks) {
     assert.equal($subMenu.length, 0, 'shows subMenu');
   });
 
-  test('selection amount only on leaf options', async function(assert) {
+  test('selection amount only on leaf options', async function (assert) {
     this.set('item', {
       label: 'foo',
-      subActions: [{ label: 'bar' }]
+      subActions: [{ label: 'bar' }],
     });
 
     await render(hbs`{{context-menu-item item=item amount=2}}`);
@@ -179,10 +179,10 @@ module('Integration | Component | {{context-menu-item}}', function(hooks) {
     assert.equal($sub[0].innerText.trim(), 'bar (2)', 'sub with amount');
   });
 
-  test('renders with icons', async function(assert) {
+  test('renders with icons', async function (assert) {
     this.set('item', {
       label: 'foo',
-      icon: 'search'
+      icon: 'search',
     });
 
     await render(hbs`{{context-menu-item item=item}}`);
@@ -191,7 +191,13 @@ module('Integration | Component | {{context-menu-item}}', function(hooks) {
     let $icon = $option.querySelectorAll('.fa');
 
     assert.equal($icon.length, 1, 'shows icon');
-    assert.ok($icon[0].classList.contains('fa-search'), 'shows right font-awesome icon');
-    assert.ok($icon[0].classList.contains('context-menu__item__icon'), 'has icon class');
+    assert.ok(
+      $icon[0].classList.contains('fa-search'),
+      'shows right font-awesome icon'
+    );
+    assert.ok(
+      $icon[0].classList.contains('context-menu__item__icon'),
+      'has icon class'
+    );
   });
 });

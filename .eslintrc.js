@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
   root: true,
   parser: 'babel-eslint',
@@ -5,22 +7,25 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
     ecmaFeatures: {
-      legacyDecorators: true
-    }
+      legacyDecorators: true,
+    },
   },
-  plugins: [
-    'ember'
-  ],
+  plugins: ['ember'],
   extends: [
     'eslint:recommended',
-    'plugin:ember/recommended'
+    'plugin:ember/recommended',
+    'plugin:prettier/recommended',
   ],
   env: {
-    browser: true
+    browser: true,
   },
   rules: {
+    // TODO: remove these after glimmer refactor
+    'ember/no-component-lifecycle-hooks': 'off',
+    'ember/no-get': 'off',
     'ember/no-jquery': 'error',
-    'ember/no-new-mixins': 'off'
+    'ember/no-mixins': 'off',
+    'ember/no-new-mixins': 'off',
   },
   overrides: [
     // node files
@@ -34,25 +39,23 @@ module.exports = {
         'testem.js',
         'blueprints/*/index.js',
         'config/**/*.js',
-        'tests/dummy/config/**/*.js'
+        'tests/dummy/config/**/*.js',
       ],
       excludedFiles: [
         'addon/**',
         'addon-test-support/**',
         'app/**',
-        'tests/dummy/app/**'
+        'tests/dummy/app/**',
       ],
       parserOptions: {
-        sourceType: 'script'
+        sourceType: 'script',
       },
       env: {
         browser: false,
-        node: true
+        node: true,
       },
       plugins: ['node'],
-      rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
-        // add your custom rules and overrides for node files here
-      })
-    }
-  ]
+      extends: ['plugin:node/recommended'],
+    },
+  ],
 };

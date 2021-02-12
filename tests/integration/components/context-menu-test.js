@@ -1,55 +1,61 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { click, render, settled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
-import { run } from '@ember/runloop';
-import { click } from '@ember/test-helpers';
 
 let $target, contextMenu;
 let e = { clientX: 0, clientY: 0 };
 
-module('Integration | Component | {{context-menu}}', function(hooks) {
+module('Integration | Component | {{context-menu}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(async function() {
+  hooks.beforeEach(async function () {
     await render(hbs`{{context-menu}}`);
 
     $target = document.querySelector('#wormhole-context-menu');
     contextMenu = this.owner.lookup('service:context-menu');
   });
 
-  test('appends wormhole target to body', function(assert) {
+  test('appends wormhole target to body', function (assert) {
     assert.ok($target);
   });
 
-  test('hidden by default', function(assert) {
+  test('hidden by default', function (assert) {
     assert.dom('.context-menu', $target).doesNotExist();
   });
 
-  test('visible on activating context-menu', function(assert) {
-    run(() => contextMenu.activate(e, [1]));
+  test('visible on activating context-menu', async function (assert) {
+    contextMenu.activate(e, [1]);
+
+    await settled();
 
     assert.dom('.context-menu', $target).exists();
   });
 
-  test('renders on cursor position', function(assert) {
-    run(() => contextMenu.activate({ clientX: 400, clientY: 500 }, [1]));
+  test('renders on cursor position', async function (assert) {
+    contextMenu.activate({ clientX: 400, clientY: 500 }, [1]);
+
+    await settled();
 
     let $contextMenu = $target.querySelector('.context-menu-container');
     assert.equal($contextMenu.offsetLeft, 400, 'left position');
     assert.equal($contextMenu.offsetTop, 500, 'top position');
 
-    run(() => contextMenu.activate({ clientX: 222, clientY: 888 }, [1]));
+    contextMenu.activate({ clientX: 222, clientY: 888 }, [1]);
+
+    await settled();
 
     $contextMenu = $target.querySelector('.context-menu-container');
     assert.equal($contextMenu.offsetLeft, 222, 'rerender left position');
     assert.equal($contextMenu.offsetTop, 888, 'rerender top position');
   });
 
-  test('renders left when at the right and less than 400 from right side', function(assert) {
+  test('renders left when at the right and less than 400 from right side', async function (assert) {
     let view = { window: { innerWidth: 1200 } };
 
-    run(() => contextMenu.activate({ clientX: 700, clientY: 500, view }, [1]));
+    contextMenu.activate({ clientX: 700, clientY: 500, view }, [1]);
+
+    await settled();
 
     let $contextMenu = $target.querySelector('.context-menu');
     assert.notOk(
@@ -57,7 +63,9 @@ module('Integration | Component | {{context-menu}}', function(hooks) {
       'renders right by default'
     );
 
-    run(() => contextMenu.activate({ clientX: 850, clientY: 500, view }, [1]));
+    contextMenu.activate({ clientX: 850, clientY: 500, view }, [1]);
+
+    await settled();
 
     $contextMenu = $target.querySelector('.context-menu');
     assert.ok(
@@ -66,13 +74,13 @@ module('Integration | Component | {{context-menu}}', function(hooks) {
     );
   });
 
-  test('renders on vertical breakpoint when the estimated height is too big', function(assert) {
+  test('renders on vertical breakpoint when the estimated height is too big', async function (assert) {
     let view = { window: { innerHeight: 800 } };
     let brakePoint = 800 - (2 * 32 + 32); // (itemCount * itemHeight + safetyMarginY)
 
-    run(() =>
-      contextMenu.activate({ clientX: 400, clientY: 500, view }, [{}, {}])
-    );
+    contextMenu.activate({ clientX: 400, clientY: 500, view }, [{}, {}]);
+
+    await settled();
 
     let $contextMenu = $target.querySelector('.context-menu-container');
     assert.equal(
@@ -81,9 +89,9 @@ module('Integration | Component | {{context-menu}}', function(hooks) {
       'top position (smaller than break point)'
     );
 
-    run(() =>
-      contextMenu.activate({ clientX: 400, clientY: 780, view }, [{}, {}])
-    );
+    contextMenu.activate({ clientX: 400, clientY: 780, view }, [{}, {}]);
+
+    await settled();
 
     $contextMenu = $target.querySelector('.context-menu-container');
     assert.equal(
@@ -93,12 +101,16 @@ module('Integration | Component | {{context-menu}}', function(hooks) {
     );
   });
 
-  test('closes on click anywhere', function(assert) {
-    run(() => contextMenu.activate(e, [1]));
+  test('closes on click anywhere', async function (assert) {
+    contextMenu.activate(e, [1]);
+
+    await settled();
 
     assert.dom('.context-menu', $target).exists('visible on active');
 
-    run(async () => await click(document.body));
+    await click(document.body);
+
+    await settled();
 
     assert.equal(contextMenu.isActive, false, 'isActive is set false on click');
     assert
@@ -106,8 +118,10 @@ module('Integration | Component | {{context-menu}}', function(hooks) {
       .doesNotExist('closed on click anywhere');
   });
 
-  test('renders with given items', function(assert) {
-    run(() => contextMenu.activate(e, [{ label: 'edit' }, { label: 'del' }]));
+  test('renders with given items', async function (assert) {
+    contextMenu.activate(e, [{ label: 'edit' }, { label: 'del' }]);
+
+    await settled();
 
     let $items = $target.querySelectorAll('.context-menu__item');
     assert.equal($items.length, 2, 'renders given items');
@@ -123,7 +137,9 @@ module('Integration | Component | {{context-menu}}', function(hooks) {
       'renders item 2 with label'
     );
 
-    run(() => contextMenu.activate(e, [{ label: 'edit' }], [1, 2]));
+    contextMenu.activate(e, [{ label: 'edit' }], [1, 2]);
+
+    await settled();
 
     $items = $target.querySelectorAll('.context-menu__item');
     assert.equal(
