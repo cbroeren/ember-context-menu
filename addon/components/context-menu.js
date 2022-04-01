@@ -1,5 +1,3 @@
-import layout from '../templates/components/context-menu';
-
 import invokeAction from 'ember-invoke-action';
 
 import Component from '@ember/component';
@@ -10,7 +8,6 @@ import { computed, get } from '@ember/object';
 
 export default Component.extend({
   tagName: '',
-  layout,
 
   contextMenu: service('context-menu'),
 

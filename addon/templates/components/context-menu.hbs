@@ -1,16 +1,16 @@
-{{#if isActive}}
-  {{#ember-wormhole to="wormhole-context-menu"}}
-    <div class="context-menu-container" style={{position}}>
-      <ul class="context-menu {{if renderLeft "context-menu--left"}}">
-        {{#each items as |item|}}
-          {{context-menu-item
-            item=item
-            amount=selection.length
-            itemIsDisabled=itemIsDisabled
-            clickAction=clickAction
-          }}
+{{#if this.isActive}}
+  <EmberWormhole to="wormhole-context-menu">
+    <div class="context-menu-container" style={{this.position}}>
+      <ul class="context-menu {{if this.renderLeft 'context-menu--left'}}">
+        {{#each this.items as |item|}}
+          <ContextMenuItem
+            item={{item}}
+            amount={{this.selection.length}}
+            itemIsDisabled={{this.itemIsDisabled}}
+            clickAction={{this.clickAction}}
+          />
         {{/each}}
       </ul>
     </div>
-  {{/ember-wormhole}}
+  </EmberWormhole>
 {{/if}}
