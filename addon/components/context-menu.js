@@ -1,31 +1,31 @@
-import invokeAction from 'ember-invoke-action';
+// import invokeAction from 'ember-invoke-action';
 
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
-import { reads } from '@ember/object/computed';
-import { computed, get } from '@ember/object';
 
-export default Component.extend({
-  tagName: '',
+export default class ContextMenuComponent extends Component {
+  @service('context-menu') contextMenu;
 
-  contextMenu: service('context-menu'),
+  get isActive() {
+    return this.contextMenu.isActive;
+  }
+  get renderLeft() {
+    return this.contextMenu.renderLeft;
+  }
+  get items() {
+    return this.contextMenu.items;
+  }
+  get details() {
+    return this.contextMenu.details;
+  }
+  get clickEvent() {
+    return this.contextMenu.event;
+  }
 
-  isActive: reads('contextMenu.isActive'),
-  renderLeft: reads('contextMenu.renderLeft'),
-  items: reads('contextMenu.items'),
-  _selection: reads('contextMenu.selection'),
-  details: reads('contextMenu.details'),
-  clickEvent: reads('contextMenu.event'),
-
-  selection: computed('_selection.[]', function () {
-    return [].concat(this._selection);
-  }),
-
-  didInsertElement() {
-    this._super(...arguments);
-    this.setWormholeTarget();
-  },
+  get selection() {
+    return [].concat(this.contextMenu.selection);
+  }
 
   setWormholeTarget() {
     let id = 'wormhole-context-menu';
@@ -33,16 +33,15 @@ export default Component.extend({
     if (target.length === 0) {
       document.body.insertAdjacentHTML('beforeend', `<div id="${id}"></div>`);
     }
-  },
+  }
 
-  position: computed('contextMenu.position.{left,top}', function () {
-    let { left, top } = get(this, 'contextMenu.position') || {};
+  get position() {
+    let { left, top } = this.contextMenu.position || {};
     return htmlSafe(`left: ${left}px; top: ${top}px;`);
-  }),
+  }
 
-  itemIsDisabled: computed('selection.[]', 'details', function () {
-    let selection = this.selection || [];
-    let details = this.details;
+  get itemIsDisabled() {
+    let { details, selection } = this;
 
     return function (item) {
       let disabled = item.disabled;
@@ -57,15 +56,10 @@ export default Component.extend({
 
       return disabled;
     };
-  }),
+  }
 
-  clickAction: computed('clickEvent', 'details', 'selection.[]', function () {
-    let selection = this.selection;
-    let details = this.details;
-    let event = this.clickEvent;
-
-    return function (item) {
-      invokeAction(item, 'action', selection, details, event);
-    };
-  }),
-});
+  clickAction(item) {
+    // invokeAction(item, 'action', this.selection, this.details, this.event);
+    item.action(this.selection, this.details, this.event);
+  }
+}

@@ -1,13 +1,14 @@
 import Mixin from '@ember/object/mixin';
 
 import { inject as service } from '@ember/service';
-import invokeAction from 'ember-invoke-action';
+// import invokeAction from 'ember-invoke-action';
 
-export default Mixin.create({
-  contextMenuService: service('context-menu'),
+export default class ContextMenuMixin extends Mixin {
+  @service('context-menu') contextMenuService;
 
   contextMenu(e) {
-    invokeAction(this, '_contextMenu', e);
+    // invokeAction(this, '_contextMenu', e);
+    this._contextMenu(e);
 
     let contextMenu = this.contextMenuService;
     let items = this.contextItems;
@@ -18,5 +19,5 @@ export default Mixin.create({
       e.preventDefault();
       contextMenu.activate(e, items, selection, details);
     }
-  },
-});
+  }
+}

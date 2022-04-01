@@ -1,4 +1,5 @@
 import Service from '@ember/service';
+import { tracked } from '@glimmer/tracking';
 import { assert } from '@ember/debug';
 import { get, set } from '@ember/object';
 
@@ -24,8 +25,8 @@ function correctedPositionY(yPosition, screenHeight, itemCount) {
   return yPosition > breakPoint ? breakPoint : yPosition;
 }
 
-export default Service.extend({
-  isActive: false,
+export default class ContextMenuService extends Service {
+  @tracked isActive = false;
 
   activate(event, items, selection, details) {
     let { clientX, clientY } = event;
@@ -57,11 +58,11 @@ export default Service.extend({
     set(this, 'isActive', true);
 
     this.addDeactivateHandler();
-  },
+  }
 
   willDestroy() {
     this.removeDeactivateHandler();
-  },
+  }
 
   removeDeactivateHandler() {
     let deactivate = this.deactivate;
@@ -70,11 +71,11 @@ export default Service.extend({
       document.body.removeEventListener('click', deactivate);
       set(this, 'deactivate', null);
     }
-  },
+  }
 
   addDeactivateHandler() {
     let deactivate = () => set(this, 'isActive', false);
     set(this, 'deactivate', deactivate);
     document.body.addEventListener('click', deactivate, { once: true });
-  },
-});
+  }
+}
