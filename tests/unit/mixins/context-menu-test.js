@@ -29,8 +29,12 @@ module('Unit | Mixin | context-menu', function (hooks) {
 
     set(this.subject, 'contextMenuService', {
       activate(e, items) {
-        assert.equal(e, event, 'calls activate with click event');
-        assert.equal(items, contextItems, 'calls activate with contextItems');
+        assert.deepEqual(e, event, 'calls activate with click event');
+        assert.deepEqual(
+          items,
+          contextItems,
+          'calls activate with contextItems'
+        );
       },
     });
 
@@ -48,7 +52,7 @@ module('Unit | Mixin | context-menu', function (hooks) {
     set(this.subject, 'contextItems', []);
 
     set(this.subject, '_contextMenu', (e) => {
-      assert.equal(e, event, 'calls pre-action with click event');
+      assert.deepEqual(e, event, 'calls pre-action with click event');
     });
 
     set(this.subject, 'contextMenuService', {
@@ -59,6 +63,8 @@ module('Unit | Mixin | context-menu', function (hooks) {
   });
 
   test('triggering contextMenu with optional selection and details', function (assert) {
+    assert.expect(2);
+
     let contextItems = [
       { label: 'item 1', action() {} },
       { label: 'item 2', action() {} },
@@ -69,12 +75,16 @@ module('Unit | Mixin | context-menu', function (hooks) {
 
     set(this.subject, 'contextMenuService', {
       activate(e, items, selection, details) {
-        assert.equal(
+        assert.deepEqual(
           selection,
           contextSelection,
           'calls activate with selection'
         );
-        assert.equal(details, contextDetails, 'calls activate with details');
+        assert.deepEqual(
+          details,
+          contextDetails,
+          'calls activate with details'
+        );
       },
     });
 

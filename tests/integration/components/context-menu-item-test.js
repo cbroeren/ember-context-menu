@@ -22,12 +22,16 @@ module('Integration | Component | {{context-menu-item}}', function (hooks) {
       label: 'foo',
     });
 
-    await render(hbs`{{context-menu-item item=item}}`);
+    await render(hbs`<ContextMenuItem item={{this.item}} />`);
 
     let $options = await findAll('li.context-menu__item');
 
-    assert.equal($options.length, 1, 'shows option');
-    assert.equal($options[0].innerText.trim(), 'foo', 'shows option label');
+    assert.strictEqual($options.length, 1, 'shows option');
+    assert.strictEqual(
+      $options[0].innerText.trim(),
+      'foo',
+      'shows option label'
+    );
   });
 
   test('renders with selection amount', async function (assert) {
@@ -35,10 +39,14 @@ module('Integration | Component | {{context-menu-item}}', function (hooks) {
       label: 'foo',
     });
 
-    await render(hbs`{{context-menu-item item=item amount=2}}`);
+    await render(hbs`<ContextMenuItem item={{this.item}} amount={{2}} />`);
 
     let $options = await findAll('li.context-menu__item');
-    assert.equal($options[0].innerText.trim(), 'foo (2)', 'shows option label');
+    assert.strictEqual(
+      $options[0].innerText.trim(),
+      'foo (2)',
+      'shows option label'
+    );
   });
 
   test(`calls "clickAction" with item's action on clicking`, async function (assert) {
@@ -55,8 +63,9 @@ module('Integration | Component | {{context-menu-item}}', function (hooks) {
       assert.deepEqual(i, item, `calls "clickAction" with item's action`);
     };
 
-    await render(hbs`{{context-menu-item item=item
-                                        clickAction=(action 'clickAction')}}`);
+    await render(
+      hbs`<ContextMenuItem item={{this.item}} clickAction={{action 'clickAction'}}`
+    );
 
     await click(find('li.context-menu__item'));
   });
@@ -72,8 +81,9 @@ module('Integration | Component | {{context-menu-item}}', function (hooks) {
       },
     });
 
-    await render(hbs`{{context-menu-item item=item
-                                        isDisabled=item.disabled}}`);
+    await render(
+      hbs`<ContextMenuItem item={{this.item}} isDisabled={{this.item.isDisabled}}`
+    );
 
     let $option = await find('li.context-menu__item');
     assert.ok(hasDisabledClass($option), 'has disabled class');
@@ -93,7 +103,7 @@ module('Integration | Component | {{context-menu-item}}', function (hooks) {
     };
 
     await render(hbs`
-      {{context-menu-item item=item itemIsDisabled=(action 'itemIsDisabled')}}
+      <ContextMenuItem item={{this.item}} itemIsDisabled={{action 'itemIsDisabled'}}
     `);
   });
 
@@ -125,21 +135,26 @@ module('Integration | Component | {{context-menu-item}}', function (hooks) {
       );
     };
 
-    await render(hbs`{{context-menu-item item=item
-                                        clickAction=(action 'clickAction')}}`);
+    await render(
+      hbs`<ContextMenuItem item={{this.item}} clickAction={{action 'clickAction'}}`
+    );
 
     let $options = await findAll('li.context-menu__item');
     let $parent = $options[0];
 
-    assert.equal($parent.innerText.trim(), 'parent', 'shows parent label');
+    assert.strictEqual(
+      $parent.innerText.trim(),
+      'parent',
+      'shows parent label'
+    );
     assert.dom($parent).hasClass('context-menu__item--parent');
 
     let $subMenu = $parent.querySelectorAll('.context-menu--sub');
     let $subOptions = $subMenu[0].querySelectorAll('li');
 
-    assert.equal($subMenu.length, 1, 'shows subMenu');
-    assert.equal($subOptions.length, 2, 'shows subMenu options');
-    assert.equal(
+    assert.strictEqual($subMenu.length, 1, 'shows subMenu');
+    assert.strictEqual($subOptions.length, 2, 'shows subMenu options');
+    assert.strictEqual(
       $subOptions[0].innerText.trim(),
       'sub 1',
       'shows subMenu option label with selection amount'
@@ -155,13 +170,14 @@ module('Integration | Component | {{context-menu-item}}', function (hooks) {
       subActions: [{ label: 'bar' }],
     });
 
-    await render(hbs`{{context-menu-item item=item
-                                        isDisabled=item.disabled}}`);
+    await render(
+      hbs`<ContextMenuItem item={{this.item}} isDisabled={{this.item.isDisabled}}`
+    );
 
     let $parent = await find('li.context-menu__item');
     let $subMenu = $parent.querySelectorAll('.context-menu--sub');
 
-    assert.equal($subMenu.length, 0, 'shows subMenu');
+    assert.strictEqual($subMenu.length, 0, 'shows subMenu');
   });
 
   test('selection amount only on leaf options', async function (assert) {
@@ -170,13 +186,17 @@ module('Integration | Component | {{context-menu-item}}', function (hooks) {
       subActions: [{ label: 'bar' }],
     });
 
-    await render(hbs`{{context-menu-item item=item amount=2}}`);
+    await render(hbs`<ContextMenuItem item={{this.item}} amount={{2}}`);
 
     let $parent = await find('li.context-menu__item');
     let $sub = $parent.querySelectorAll('.context-menu--sub');
 
-    assert.equal($parent.innerText.trim(), 'foo', 'parent without amount');
-    assert.equal($sub[0].innerText.trim(), 'bar (2)', 'sub with amount');
+    assert.strictEqual(
+      $parent.innerText.trim(),
+      'foo',
+      'parent without amount'
+    );
+    assert.strictEqual($sub[0].innerText.trim(), 'bar (2)', 'sub with amount');
   });
 
   test('renders with icons', async function (assert) {
@@ -185,12 +205,12 @@ module('Integration | Component | {{context-menu-item}}', function (hooks) {
       icon: 'search',
     });
 
-    await render(hbs`{{context-menu-item item=item}}`);
+    await render(hbs`<ContextMenuItem item={{this.item}} />`);
 
     let $option = find('li.context-menu__item');
     let $icon = $option.querySelectorAll('.fa');
 
-    assert.equal($icon.length, 1, 'shows icon');
+    assert.strictEqual($icon.length, 1, 'shows icon');
     assert.ok(
       $icon[0].classList.contains('fa-search'),
       'shows right font-awesome icon'

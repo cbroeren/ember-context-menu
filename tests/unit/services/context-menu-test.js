@@ -11,7 +11,7 @@ module('Unit | Service | context menu', function (hooks) {
   });
 
   test('by default not active', function (assert) {
-    assert.equal(contextMenu.isActive, false);
+    assert.false(contextMenu.isActive);
   });
 
   test('activate() needs event and items', function (assert) {
@@ -40,7 +40,7 @@ module('Unit | Service | context menu', function (hooks) {
       'sets position depending on cursor position'
     );
     assert.deepEqual(contextMenu.items, items, 'sets items');
-    assert.equal(contextMenu.isActive, true, 'activated');
+    assert.true(contextMenu.isActive, 'activated');
   });
 
   test('optional can pass a selection', function (assert) {
@@ -48,7 +48,7 @@ module('Unit | Service | context menu', function (hooks) {
 
     contextMenu.activate({ clientX: 400, clientY: 500 }, items, [{}, {}]);
 
-    assert.equal(contextMenu.selection.length, 2, 'sets selection array');
+    assert.strictEqual(contextMenu.selection.length, 2, 'sets selection array');
   });
 
   test('optional can pass details', function (assert) {
@@ -58,6 +58,6 @@ module('Unit | Service | context menu', function (hooks) {
 
     contextMenu.activate({ clientX: 400, clientY: 500 }, items, null, details);
 
-    assert.equal(contextMenu.details, details, 'sets details');
+    assert.deepEqual(contextMenu.details, details, 'sets details');
   });
 });
