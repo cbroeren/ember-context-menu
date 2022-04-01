@@ -7,7 +7,7 @@ export default Controller.extend({
   }),
 
   actions: {
-    toggleSelectObject(object) {
+    toggleSelectItem(object) {
       object.toggleProperty('selected');
     },
   },
