@@ -1,5 +1,5 @@
-import Component from '@ember/component';
-import computed from '@ember/computed';
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import contextMenuMixin from 'ember-context-menu';
 
 function increment(objects, amount = 1) {
@@ -14,22 +14,19 @@ function setTo(objects, value = 0) {
   });
 }
 
-export default Component.extend(contextMenuMixin, {
-  classNames: ['test-component'],
-  classNameBindings: ['object.selected:test-component--selected'],
+@contextMenuMixin
+export default class TestComponent extends Component {
+  @tracked contextSelection = [];
 
-  contextSelection: computed(function () {
-    return [];
-  }),
-
-  contextItems: computed('object.selected', function () {
-    if (this.get('object.selected')) {
+  get contextItems() {
+    const { item } = this.args;
+    if (item.selected) {
       return [
         { label: 'No action' },
         {
           label: 'Singe object action',
-          disabled(objects) {
-            return objects.length > 1;
+          disabled(items) {
+            return items.length > 1;
           },
           action() {},
         },
@@ -38,8 +35,8 @@ export default Component.extend(contextMenuMixin, {
           subActions: [
             {
               label: 'Set to 5',
-              action(objects) {
-                setTo(objects, 5);
+              action(items) {
+                setTo(items, 5);
               },
             },
             {
@@ -47,21 +44,21 @@ export default Component.extend(contextMenuMixin, {
               subActions: [
                 {
                   label: 'Add 1',
-                  action(objects) {
-                    increment(objects, 1);
+                  action(items) {
+                    increment(items, 1);
                   },
                 },
                 {
                   label: 'Add 3',
                   disabled: true,
-                  action(objects) {
-                    increment(objects, 3);
+                  action(items) {
+                    increment(items, 3);
                   },
                 },
                 {
                   label: 'Add 10',
-                  action(objects) {
-                    increment(objects, 10);
+                  action(items) {
+                    increment(items, 10);
                   },
                 },
               ],
@@ -71,13 +68,13 @@ export default Component.extend(contextMenuMixin, {
         {
           label: 'Reset to 0',
           icon: 'undo',
-          action(objects) {
-            setTo(objects, 0);
+          action(items) {
+            setTo(items, 0);
           },
         },
       ];
     }
 
     return [];
-  }),
-});
+  }
+}

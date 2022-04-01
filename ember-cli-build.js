@@ -21,5 +21,8 @@ module.exports = function (defaults) {
         package: 'qunit',
       },
     ],
+    'ember-font-awesome': {
+      includeFontFiles: false,
+    },
   });
 };

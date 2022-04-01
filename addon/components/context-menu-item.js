@@ -1,38 +1,26 @@
-import layout from '../templates/components/context-menu-item';
+import Component from '@glimmer/component';
+// import invokeAction from 'ember-invoke-action';
 
-import Component from '@ember/component';
-import { computed } from '@ember/object';
-import { bool } from '@ember/object/computed';
+export default class ContextMenuItem extends Component {
+  get _amount() {
+    if (!this.isParent && this.args.amount > 1) {
+      return this.args.amount;
+    }
+    return null;
+  }
 
-import invokeAction from 'ember-invoke-action';
+  get _isParent() {
+    return !!this.args.item.subActions?.length;
+  }
 
-export default Component.extend({
-  layout,
-
-  tagName: 'li',
-
-  classNames: ['context-menu__item'],
-  classNameBindings: [
-    'isDisabled:context-menu__item--disabled',
-    '_isParent:context-menu__item--parent',
-  ],
-
-  _amount: computed('_isParent', 'amount', function () {
-    let amount = this.amount;
-
-    return !this._isParent && amount > 1 && amount;
-  }),
-
-  _isParent: bool('item.subActions.length'),
-
-  isDisabled: computed('item.{disabled,action}', 'itemIsDisabled', function () {
-    let item = this.item;
-    return invokeAction(this, 'itemIsDisabled', item);
-  }),
+  isDisabled() {
+    // return invokeAction(this, 'itemIsDisabled', this.args.item);
+    return this.args.itemIsDisabled(this.args.item);
+  }
 
   click() {
     if (!this.isDisabled && !this._isParent) {
       invokeAction(this, 'clickAction', this.item);
     }
-  },
-});
+  }
+}

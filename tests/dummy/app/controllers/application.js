@@ -1,14 +1,13 @@
 import Controller from '@ember/controller';
-import computed from '@ember/computed';
+import { action } from '@ember/object';
 
-export default Controller.extend({
-  selection: computed('model.@each.selected', function () {
+export default class ApplicationController extends Controller {
+  get selection() {
     return this.model.filterBy('selected');
-  }),
+  }
 
-  actions: {
-    toggleSelectItem(object) {
-      object.toggleProperty('selected');
-    },
-  },
-});
+  @action
+  toggleSelectItem(object) {
+    object.toggleProperty('selected');
+  }
+}
