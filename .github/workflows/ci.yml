@@ -22,13 +22,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 12.x
-          cache: yarn
+          cache: npm
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci install
       - name: Lint
-        run: yarn lint
+        run: npm lint
       - name: Run Tests
-        run: yarn test:ember
+        run: npm test:ember
 
   floating:
     name: "Floating Dependencies"
@@ -39,11 +39,11 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 12.x
-          cache: yarn
+          cache: npm
       - name: Install Dependencies
-        run: yarn install --no-lockfile
+        run: npm install --no-lockfile
       - name: Run Tests
-        run: yarn test:ember
+        run: npm test:ember
 
   try-scenarios:
     name: ${{ matrix.try-scenario }}
@@ -69,8 +69,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 12.x
-          cache: yarn
+          cache: npm
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
       - name: Run Tests
         run: ./node_modules/.bin/ember try:one ${{ matrix.try-scenario }}
