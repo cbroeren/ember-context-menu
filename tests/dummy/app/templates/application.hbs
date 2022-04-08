@@ -6,9 +6,10 @@
 </p>
 {{#each this.model as |item|}}
   <TestComponent
-    item={{item}}
-    contextSelection={{this.selection}}
-    {{on 'click' @toggleSelectItem}}
+    @item={{item}}
+    @contextSelection={{this.selection}}
+    @selectOnContext={{this.selectOnContext}}
+    @onClick={{this.toggleSelectItem}}
   />
 {{/each}}
 <p>
@@ -16,4 +17,4 @@
     See README for detailed HOW TO
   </a>
 </p>
-<ContextMenu />
+<ContextMenuTarget />

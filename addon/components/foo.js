@@ -5,6 +5,7 @@ import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
 
 export default class ContextMenuComponent extends Component {
+  /*
   @service('context-menu') contextMenu;
 
   get isActive() {
@@ -28,11 +29,11 @@ export default class ContextMenuComponent extends Component {
   }
 
   setWormholeTarget() {
-    let id = 'wormhole-context-menu';
-    let target = document.querySelectorAll(`#${id}`);
-    if (target.length === 0) {
-      document.body.insertAdjacentHTML('beforeend', `<div id="${id}"></div>`);
-    }
+    // let id = 'wormhole-context-menu';
+    // let target = document.querySelectorAll(`#${id}`);
+    // if (target.length === 0) {
+    //   document.body.insertAdjacentHTML('beforeend', `<div id="${id}"></div>`);
+    // }
   }
 
   get position() {
@@ -62,4 +63,5 @@ export default class ContextMenuComponent extends Component {
     // invokeAction(item, 'action', this.selection, this.details, this.event);
     item.action(this.selection, this.details, this.event);
   }
+  */
 }

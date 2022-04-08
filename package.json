@@ -32,11 +32,13 @@
     "ember-cli-babel": "^7.26.11",
     "ember-cli-htmlbars": "^6.0.1",
     "ember-cli-sass": "^10.0.1",
+    "ember-modifier": "^3.2.6",
     "ember-wormhole": "^0.6.0",
     "sass": "^1.49.9"
   },
   "devDependencies": {
     "@ember/optional-features": "^2.0.0",
+    "@ember/render-modifiers": "^2.0.4",
     "@ember/test-helpers": "^2.6.0",
     "@embroider/test-setup": "^1.2.0",
     "@glimmer/component": "^1.0.4",
