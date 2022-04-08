@@ -1,26 +1,22 @@
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
-import contextMenuMixin from 'ember-context-menu';
+import { set } from '@ember/object';
 
-function increment(objects, amount = 1) {
+const increment = (amount = 1) => ((objects) => {
   objects.forEach((object) => {
-    object.incrementProperty('count', amount);
+    set(object, 'count', object.count + amount)
   });
-}
+});
 
-function setTo(objects, value = 0) {
+const setTo = (value = 0) => ((objects) => {
   objects.forEach((object) => {
-    object.set('count', value);
-  });
-}
+    set(object, 'count', value);
+  })
+});
 
-@contextMenuMixin
 export default class TestComponent extends Component {
-  @tracked contextSelection = [];
-
   get contextItems() {
     const { item } = this.args;
-    if (item.selected) {
+    if (item.selected || true) {
       return [
         { label: 'No action' },
         {
@@ -35,31 +31,23 @@ export default class TestComponent extends Component {
           subActions: [
             {
               label: 'Set to 5',
-              action(items) {
-                setTo(items, 5);
-              },
+              action: setTo(5),
             },
             {
               label: 'Add',
               subActions: [
                 {
                   label: 'Add 1',
-                  action(items) {
-                    increment(items, 1);
-                  },
+                  action: increment(1),
                 },
                 {
                   label: 'Add 3',
                   disabled: true,
-                  action(items) {
-                    increment(items, 3);
-                  },
+                  action: increment(3),
                 },
                 {
                   label: 'Add 10',
-                  action(items) {
-                    increment(items, 10);
-                  },
+                  action: increment(10),
                 },
               ],
             },
@@ -68,9 +56,7 @@ export default class TestComponent extends Component {
         {
           label: 'Reset to 0',
           icon: 'undo',
-          action(items) {
-            setTo(items, 0);
-          },
+          action: setTo(0),
         },
       ];
     }

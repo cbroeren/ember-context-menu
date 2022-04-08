@@ -3,11 +3,13 @@ body, html {
   height: 100%;
 }
 
-#wormhole-context-menu {
+.context-menu-target {
   position: fixed;
   top: 0;
   left: 0;
   z-index:  100;
+  border: 3px solid red;
+  overflow: visible;
 }
 
 .context-menu-container {

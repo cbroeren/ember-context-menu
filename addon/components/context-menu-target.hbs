@@ -1,0 +1,16 @@
+<div class="context-menu-target">
+  {{#if this.isActive}}
+    <div class="context-menu-container" style={{this.position}}>
+      <ul class="context-menu {{if this.renderLeft 'context-menu--left'}}">
+        {{#each this.items as |item|}}
+          <ContextMenuItem
+            @item={{item}}
+            @amount={{this.selection.length}}
+            @checkItemIsDisabled={{this.itemIsDisabled}}
+            @handleClickAction={{this.handleClickAction}}
+          />
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+</div>
