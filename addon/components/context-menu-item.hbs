@@ -1,0 +1,30 @@
+<li
+  class="context-menu__item{{if this.isDisabled " context-menu__item--disabled"}}{{if this.isParent " context-menu__item--parent"}}"
+  {{on "click" this.onClick}}
+  >
+  <span class="context-menu__item__label">
+    {{#if @item.icon}}
+      {{!--
+      {{fa-icon @item.icon class='context-menu__item__icon'}}
+      --}}
+    {{/if}}
+    {{@item.label}}
+    {{#if this.amount}}
+      ({{this.amount}})
+    {{/if}}
+  </span>
+  {{#if @item.subActions}}
+    {{#unless this.isDisabled}}
+      <ul class="context-menu--sub">
+        {{#each @item.subActions as |subItem|}}
+          <ContextMenuItem
+            @item={{subItem}}
+            @amount={{this.amount}}
+            @checkItemIsDisabled={{@checkItemIsDisabled}}
+            @handleClickAction={{@handleClickAction}}
+          />
+        {{/each}}
+      </ul>
+    {{/unless}}
+  {{/if}}
+</li>

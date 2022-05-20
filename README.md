@@ -11,9 +11,9 @@ An [ember-cli](http://www.ember-cli.com/) addon to add any right-click-menu to y
 Compatibility
 ------------------------------------------------------------------------------
 
-* Ember.js v3.16 or above
-* Ember CLI v2.13 or above
-* Node.js v10 or above
+* Ember.js v3.24 or above
+* Ember CLI v3.24 or above
+* Node.js v12 or above
 
 
 Installation

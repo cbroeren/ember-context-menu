@@ -10,7 +10,7 @@ module('Integration | Component | {{context-menu}}', function (hooks) {
   setupRenderingTest(hooks);
 
   hooks.beforeEach(async function () {
-    await render(hbs`{{context-menu}}`);
+    await render(hbs`<ContextMenu />`);
 
     $target = document.querySelector('#wormhole-context-menu');
     contextMenu = this.owner.lookup('service:context-menu');
@@ -38,16 +38,16 @@ module('Integration | Component | {{context-menu}}', function (hooks) {
     await settled();
 
     let $contextMenu = $target.querySelector('.context-menu-container');
-    assert.equal($contextMenu.offsetLeft, 400, 'left position');
-    assert.equal($contextMenu.offsetTop, 500, 'top position');
+    assert.strictEqual($contextMenu.offsetLeft, 400, 'left position');
+    assert.strictEqual($contextMenu.offsetTop, 500, 'top position');
 
     contextMenu.activate({ clientX: 222, clientY: 888 }, [1]);
 
     await settled();
 
     $contextMenu = $target.querySelector('.context-menu-container');
-    assert.equal($contextMenu.offsetLeft, 222, 'rerender left position');
-    assert.equal($contextMenu.offsetTop, 888, 'rerender top position');
+    assert.strictEqual($contextMenu.offsetLeft, 222, 'rerender left position');
+    assert.strictEqual($contextMenu.offsetTop, 888, 'rerender top position');
   });
 
   test('renders left when at the right and less than 400 from right side', async function (assert) {
@@ -83,7 +83,7 @@ module('Integration | Component | {{context-menu}}', function (hooks) {
     await settled();
 
     let $contextMenu = $target.querySelector('.context-menu-container');
-    assert.equal(
+    assert.strictEqual(
       $contextMenu.offsetTop,
       500,
       'top position (smaller than break point)'
@@ -94,7 +94,7 @@ module('Integration | Component | {{context-menu}}', function (hooks) {
     await settled();
 
     $contextMenu = $target.querySelector('.context-menu-container');
-    assert.equal(
+    assert.strictEqual(
       $contextMenu.offsetTop,
       brakePoint,
       'top position (bigger than break point)'
@@ -110,9 +110,7 @@ module('Integration | Component | {{context-menu}}', function (hooks) {
 
     await click(document.body);
 
-    await settled();
-
-    assert.equal(contextMenu.isActive, false, 'isActive is set false on click');
+    assert.false(contextMenu.isActive, 'isActive is set false on click');
     assert
       .dom('.context-menu', $target)
       .doesNotExist('closed on click anywhere');
@@ -124,14 +122,14 @@ module('Integration | Component | {{context-menu}}', function (hooks) {
     await settled();
 
     let $items = $target.querySelectorAll('.context-menu__item');
-    assert.equal($items.length, 2, 'renders given items');
+    assert.strictEqual($items.length, 2, 'renders given items');
 
-    assert.equal(
+    assert.strictEqual(
       $items[0].innerText.trim(),
       'edit',
       'renders item 1 with label'
     );
-    assert.equal(
+    assert.strictEqual(
       $items[1].innerText.trim(),
       'del',
       'renders item 2 with label'
@@ -142,7 +140,7 @@ module('Integration | Component | {{context-menu}}', function (hooks) {
     await settled();
 
     $items = $target.querySelectorAll('.context-menu__item');
-    assert.equal(
+    assert.strictEqual(
       $items[0].innerText.trim(),
       'edit (2)',
       'renders item with selection amount'

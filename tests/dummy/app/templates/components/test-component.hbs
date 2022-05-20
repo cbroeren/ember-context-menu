@@ -1,1 +1,7 @@
-{{object.count}}
+<div 
+    class="test-component{{if @item.selected " test-component--selected"}}"
+    {{on 'click' (fn @onClick @item)}}
+    {{on 'contextmenu' (fn @selectOnContext @item) capture=true}}
+    {{context-menu items=this.contextItems selection=@contextSelection}}>
+    {{@item.count}}
+</div>

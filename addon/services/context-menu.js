@@ -1,4 +1,5 @@
 import Service from '@ember/service';
+import { tracked } from '@glimmer/tracking';
 import { assert } from '@ember/debug';
 import { get, set } from '@ember/object';
 
@@ -24,8 +25,14 @@ function correctedPositionY(yPosition, screenHeight, itemCount) {
   return yPosition > breakPoint ? breakPoint : yPosition;
 }
 
-export default Service.extend({
-  isActive: false,
+export default class ContextMenuService extends Service {
+  @tracked isActive = false;
+  @tracked event = null;
+  @tracked items = null;
+  @tracked selection = [{ foo: 'bar' }];
+  @tracked details = null;
+  @tracked position = null;
+  @tracked renderLeft = false;
 
   activate(event, items, selection, details) {
     let { clientX, clientY } = event;
@@ -34,7 +41,7 @@ export default Service.extend({
 
     selection = selection ? [].concat(selection) : [];
 
-    this.removeDeactivateHandler();
+    this.cleanup();
 
     if (clientX == null || clientY == null) {
       assert('You need to pass event to the context-menu activate()');
@@ -51,30 +58,36 @@ export default Service.extend({
 
     set(this, 'event', event);
     set(this, 'items', items);
-    set(this, 'selection', selection);
+    set(this, 'selection', selection || []);
     set(this, 'details', details);
     set(this, 'renderLeft', renderLeft(clientX, screenWidth));
     set(this, 'isActive', true);
 
     this.addDeactivateHandler();
-  },
+  }
 
   willDestroy() {
-    this.removeDeactivateHandler();
-  },
+    this.cleanup();
+  }
 
-  removeDeactivateHandler() {
-    let deactivate = this.deactivate;
-
-    if (deactivate != null) {
-      document.body.removeEventListener('click', deactivate);
-      set(this, 'deactivate', null);
+  get cleanup() {
+    return () => {
+      if (this.deactivate) {
+        document.body.removeEventListener('click', this.deactivate);
+        set(this, 'deactivate', null);
+      }
+      set(this, 'event', null);
+      set(this, 'items', null);
+      set(this, 'selection', []);
+      set(this, 'details', null);
+      set(this, 'position', null);
+      set(this, 'renderLeft', false);
+      set(this, 'isActive', false);
     }
-  },
+  }
 
   addDeactivateHandler() {
-    let deactivate = () => set(this, 'isActive', false);
-    set(this, 'deactivate', deactivate);
-    document.body.addEventListener('click', deactivate, { once: true });
-  },
-});
+    set(this, 'deactivate', this.cleanup);
+    document.body.addEventListener('click', this.deactivate, { once: true });
+  }
+}

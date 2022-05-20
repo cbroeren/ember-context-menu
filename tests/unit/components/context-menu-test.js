@@ -13,7 +13,7 @@ module('Unit | Component | context-menu', function (hooks) {
   test('isDisabled() when no action set', function (assert) {
     let item = {};
 
-    assert.equal(subject.get('itemIsDisabled')(item), true);
+    assert.true(subject.get('itemIsDisabled')(item));
   });
 
   test('isDisabled() returns item.disabled', function (assert) {
@@ -65,7 +65,7 @@ module('Unit | Component | context-menu', function (hooks) {
       },
     };
 
-    assert.equal(subject.get('itemIsDisabled')(item), true);
+    assert.true(subject.get('itemIsDisabled')(item));
   });
 
   test(`clickAction() calls item's action with selection and details`, function (assert) {
