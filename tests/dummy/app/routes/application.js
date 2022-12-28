@@ -1,4 +1,4 @@
-import Route from '@ember/route';
+import Route from '@ember/routing/route';
 import { A } from '@ember/array';
 import EmberObject from '@ember/object';
 

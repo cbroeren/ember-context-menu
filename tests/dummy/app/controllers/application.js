@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import computed from '@ember/computed';
+import { computed } from '@ember/object';
 
 export default Controller.extend({
   selection: computed('model.@each.selected', function () {

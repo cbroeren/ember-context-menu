@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import computed from '@ember/computed';
+import { computed } from '@ember/object';
 import contextMenuMixin from 'ember-context-menu';
 
 function increment(objects, amount = 1) {
